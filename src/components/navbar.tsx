@@ -4,11 +4,11 @@ import Button from "../components/button.tsx";
 
 const Navigation: React.FC = () => {
   return (
-    <div className="">
+    <div className="w-screen py-15 px-30 flex justify-between items-center"> {/* Navbar */}
       <Link to="/"> {/* Logo*/}
         <img src={Logo} />
       </Link>
-      <div> {/* Links */}
+      <div className="flex gap-5"> {/* Links */}
         <Link to="/">
           <p>Početna</p>
         </Link>
@@ -19,12 +19,18 @@ const Navigation: React.FC = () => {
           <p>Ljestvica</p>
         </Link>
       </div>
-      <div> {/* Buttons */}
+      <div className="flex gap-7"> {/* Buttons */}
         <Link to="/login">
-          <Button buttonText="Prijavi se"/>
+          <Button
+            buttonText="Prijavi se"
+            className="text-[#2559D2] border-[#2559D2] border-[1px] rounded-[5px] px-6 py-2"
+          />
         </Link>
         <Link to="/register">
-          <Button buttonText="Registruj se"/>
+          <Button
+            buttonText="Registruj se"
+            className="bg-[#2559D2] border-[#2559D2] border-[1px] text-white rounded-[5px] px-6 py-2"
+          />
         </Link>
       </div>
     </div>
