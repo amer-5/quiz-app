@@ -23,13 +23,13 @@ const Navigation: React.FC = () => {
         <Link to="/login">
           <Button
             buttonText="Prijavi se"
-            className="text-[#2559D2] border-[#2559D2] border-[1px] rounded-[5px] px-6 py-2 tracking-wider"
+            className="text-[#2559D2] border-[#2559D2] border-[1px] rounded-[5px] px-6 py-2 tracking-wider cursor-pointer"
           />
         </Link>
         <Link to="/register">
           <Button
             buttonText="Registruj se"
-            className="bg-[#2559D2] border-[#2559D2] border-[1px] text-white rounded-[5px] px-6 py-2 tracking-wider"
+            className="bg-[#2559D2] border-[#2559D2] border-[1px] text-white rounded-[5px] px-6 py-2 tracking-wider cursor-pointer"
           />
         </Link>
       </div>
