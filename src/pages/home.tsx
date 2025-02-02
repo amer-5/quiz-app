@@ -20,7 +20,7 @@ const Home: React.FC = () => {
         </p>
         <Button
           buttonText="Započni kviz"
-          className="bg-[#2559D2] border-[#2559D2] border-[1px] font-bold text-xl tracking-wide text-white rounded-[5px] px-30 py-5 mt-6"
+          className="bg-[#2559D2] border-[#2559D2] border-[1px] font-bold text-xl tracking-wide text-white rounded-[10px] px-30 py-5 mt-6"
         />
         <p className="opacity-60 mt-4 ml-29">{odigranihKvizova} odigranih kvizova</p>
       </div>
