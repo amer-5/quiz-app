@@ -32,7 +32,7 @@ const QuizPopup: React.FC = () => {
           svoje znanje? Sretno! 🎉
         </p>
         <img src={emoji} alt="/" className="my-4 mt-6 scale-125" />
-        <Link to="quiz">
+        <Link to="../quiz">
           <Button
             buttonText="Započni kviz"
             className="bg-white text-[#2559D2] font-bold rounded-[10px] text-[1.25rem] py-4 px-30 cursor-pointer"
