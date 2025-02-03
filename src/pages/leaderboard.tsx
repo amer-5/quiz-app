@@ -1,10 +1,13 @@
 import ScoreCard from "../components/scoreCard";
 import Button from "../components/button";
 import backgroundImage from "../assets/blue-bg.png";
+import QuizPopup from "../components/quizPopup";
+import usePopup from "../hooks/tooglePopup";
 // import { useSortUsers, useUserPlacement } from "../hooks/getTopScores";
 
 const Leaderboard: React.FC = () => {
   // const topScores = useSortUsers(fetchedUsers)
+  const { openPopup } = usePopup();
   const tempTopScores = [
     {
       name: "Jasmin Fajkic",
@@ -51,6 +54,7 @@ const Leaderboard: React.FC = () => {
   ].slice(0, 5);
   return (
     <div className="w-screen h-100 flex flex-col items-center justify-center">
+      <QuizPopup />
       <div
         style={{
           backgroundImage: `url(${backgroundImage})`,
@@ -67,6 +71,7 @@ const Leaderboard: React.FC = () => {
         </p>
         <Button
           buttonText="Započni kviz!"
+          onClick={openPopup}
           className="bg-white text-[#2559D2] text-[1.25rem] font-bold rounded-[5px] py-3 px-20 cursor-pointer relative left-[50%] translate-x-[-50%] my-3 mt-8"
         />
         <div className="flex flex-col items-center justify-center gap-3 mt-14">
