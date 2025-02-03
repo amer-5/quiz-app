@@ -1,14 +1,19 @@
 import Button from "../components/button";
 import bgImage from "../assets/home-bg.png";
+import QuizPopup from "../components/quizPopup";
+import usePopup from "../hooks/tooglePopup";
 
 const odigranihKvizova = 0;
 
 const Home: React.FC = () => {
+  const { openPopup } = usePopup();
+
   return (
     <div
       style={{ backgroundImage: `url(${bgImage})` }}
       className="w-screen bg-contain bg-no-repeat [background-position-x:20vw] mx-30 h-[calc(100vh-4.75rem)]"
     >
+      <QuizPopup />
       <div>
         <h1 className="text-black text-[4rem] font-bold w-[calc(50vw-12.5rem)] pt-[7.5vh]">
           Pokažite svoje znanje o{" "}
@@ -20,9 +25,12 @@ const Home: React.FC = () => {
         </p>
         <Button
           buttonText="Započni kviz"
-          className="bg-[#2559D2] border-[#2559D2] border-[1px] font-bold text-xl tracking-wide text-white rounded-[10px] px-30 py-5 mt-6"
+          onClick={openPopup}
+          className="bg-[#2559D2] border-[#2559D2] border-[1px] font-bold text-xl tracking-wide text-white rounded-[10px] px-30 py-5 mt-6 cursor-pointer"
         />
-        <p className="opacity-60 mt-4 ml-29">{odigranihKvizova} odigranih kvizova</p>
+        <p className="opacity-60 mt-4 ml-29">
+          {odigranihKvizova} odigranih kvizova
+        </p>
       </div>
     </div>
   );

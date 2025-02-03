@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navigation from "./components/navbar.tsx";
 import Home from "./pages/home.tsx";
 import Guides from "./pages/guides.tsx";
+import Leaderboard from "./pages/leaderboard.tsx";
+import QuizPopup from "./components/quizPopup.tsx";
 
 const AppContent = () => {
   return (
@@ -11,9 +13,9 @@ const AppContent = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/guides" element={<Guides />} />
-        <Route path="/leaderboard" element={<Navigation />} />
-        <Route path="/login" element={<Navigation />} />
-        <Route path="/register" element={<Navigation />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/login" element={<QuizPopup />} />
+        <Route path="/register" element={<Home />} />
       </Routes>
     </>
   );
