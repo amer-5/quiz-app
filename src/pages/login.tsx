@@ -1,14 +1,44 @@
-import image from "../assets/loginImage.png";
+import { Link } from "react-router-dom";
 
-const LoginPage: React.FC = () => {
+import Auth from "../components/auth";
+import AuthButton from "../components/authButton";
+import Button from "../components/button";
+import Input from "../components/input";
+
+import googleIco from "../assets/icons/google.png";
+import Logo from "../assets/logo.svg";
+
+export default function Login() {
   return (
-    <div className="w-screen h-screen flex justify-center items-center overflow-hidden">
-      <div
-        style={{ backgroundImage: `url(${image})` }}
-        className="relative w-full h-full bg-contain bg-no-repeat before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-t before:from-black/40 before:to-black/0"
-      ></div>
+    <div className="w-screen h-screen flex overflow-hidden">
+      <Auth />
+      <div className="w-3/7 px-[3.75rem] py-24">
+        <img src={Logo} alt="logo" className="w-20 h-20" />
+        <h2 className="text-[2rem] font-bold">Prijavite se na vaš račun</h2>
+        <p className="opacity-60 mb-10">Unesite informacije za prijavu</p>
+        <AuthButton providerImg={googleIco} providerName="Google" />
+        <p className="opacity-40 text-center font-light my-6">ili</p>
+        <div className="space-y-8 my-6">
+          <Input inputPlaceholder="E-mail adresa" />
+          <Input inputPlaceholder="Lozinka" />
+        </div>
+        <div className="flex items-center justify-between mb-12">
+          <p className="opacity-60">Zaboravili ste lozinku?</p>
+          <Link to="/reset-pw" className="text-[#2559D2]">
+            Resetuj lozinku
+          </Link>
+        </div>
+        <Button
+          buttonText="Prijavi se"
+          className="w-full bg-[#2559D2] text-white rounded-[10px] py-3.5 my-4 cursor-pointer"
+        />
+        <div className="flex items-center justify-center gap-2">
+          <p className="opacity-60">Nemate račun?</p>
+          <Link to="/register" className="text-[#2559D2]">
+            Registruj se
+          </Link>
+        </div>
+      </div>
     </div>
   );
-};
-
-export default LoginPage;
+}

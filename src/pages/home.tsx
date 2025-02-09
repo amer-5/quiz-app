@@ -11,7 +11,7 @@ const Home: React.FC = () => {
   return (
     <div
       style={{ backgroundImage: `url(${bgImage})` }}
-      className="w-screen bg-contain bg-no-repeat [background-position-x:20vw] mx-30 h-[calc(100vh-4.75rem)]"
+      className="overflow-x-hidden w-screen bg-contain bg-no-repeat [background-position-x:20vw] mx-30 h-[calc(100vh-4.75rem)]"
     >
       <QuizPopup />
       <div>
