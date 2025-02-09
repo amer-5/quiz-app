@@ -8,19 +8,19 @@ import Input from "../components/input";
 import googleIco from "../assets/icons/google.png";
 import Logo from "../assets/logo.svg";
 
-export default function Login() {
+const Login = () => {
   return (
     <div className="w-screen h-screen flex overflow-hidden">
       <Auth />
       <div className="w-3/7 px-[3.75rem] py-24">
-        <img src={Logo} alt="logo" className="w-20 h-20" />
+        <img src={Logo} alt="logo" className="w-24 mb-6" />
         <h2 className="text-[2rem] font-bold">Prijavite se na vaš račun</h2>
         <p className="opacity-60 mb-10">Unesite informacije za prijavu</p>
         <AuthButton providerImg={googleIco} providerName="Google" />
         <p className="opacity-40 text-center font-light my-6">ili</p>
         <div className="space-y-8 my-6">
           <Input inputPlaceholder="E-mail adresa" />
-          <Input inputPlaceholder="Lozinka" />
+          <Input inputPlaceholder="Lozinka" type="password" />
         </div>
         <div className="flex items-center justify-between mb-12">
           <p className="opacity-60">Zaboravili ste lozinku?</p>
@@ -41,4 +41,6 @@ export default function Login() {
       </div>
     </div>
   );
-}
+};
+
+export default Login;

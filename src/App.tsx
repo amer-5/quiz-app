@@ -10,7 +10,8 @@ import Home from "./pages/home.tsx";
 import Guides from "./pages/guides.tsx";
 import Leaderboard from "./pages/leaderboard.tsx";
 import Quiz from "./pages/quiz.tsx";
-import LoginPage from "./pages/login.tsx";
+import Login from "./pages/login.tsx";
+import Register from "./pages/register.tsx";
 
 const AppContent = () => {
   const location = useLocation();
@@ -27,8 +28,8 @@ const AppContent = () => {
         <Route path="/guides" element={<Guides />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/quiz" element={<Quiz />} />
-        <Route path="/register" element={<Home />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </>
   );
