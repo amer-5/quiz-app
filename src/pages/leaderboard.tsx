@@ -53,14 +53,14 @@ const Leaderboard: React.FC = () => {
     },
   ].slice(0, 5);
   return (
-    <div className="w-screen h-100 flex flex-col items-center justify-center">
+    <div className="w-screen flex flex-col items-center">
       <QuizPopup />
       <div
         style={{
           backgroundImage: `url(${backgroundImage})`,
           backgroundSize: "cover",
         }}
-        className="w-[70%] aspect-[60/43] mt-[30vw] p-6 pt-20"
+        className="w-[70%] aspect-[60/43] py-6 pt-20"
       >
         <h2 className="text-[2.5rem] text-center text-white font-bold tracking-wider">
           Takmičite se i osvajajte vrh!
