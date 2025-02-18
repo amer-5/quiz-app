@@ -6,16 +6,12 @@ interface UserData {
   username: string;
 }
 
-interface Token {
-  token: string;
-}
-
 const registerUser = async (
   email: string,
   password: string,
   firstName: string,
   lastName: string,
-  username: string,
+  username: string
 ): Promise<{ success: boolean; message?: string }> => {
   const userData: UserData = {
     email,
@@ -41,11 +37,10 @@ const registerUser = async (
       );
     }
 
-    
     const data = await response.json();
     console.log(data);
 
-    
+    localStorage.setItem("token", data.user.token)
 
     return { success: true, message: "Uspešno ste se registrovali!" };
   } catch (error) {
