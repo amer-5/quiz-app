@@ -2,7 +2,7 @@ import ScoreCard from "../components/scoreCard";
 import Button from "../components/button";
 import backgroundImage from "../assets/blue-bg.png";
 import QuizPopup from "../components/quizPopup";
-import usePopup from "../hooks/tooglePopup";
+import usePopup from "../hooks/togglePopup";
 // import { useSortUsers, useUserPlacement } from "../hooks/getTopScores";
 
 const Leaderboard: React.FC = () => {
@@ -60,7 +60,7 @@ const Leaderboard: React.FC = () => {
           backgroundImage: `url(${backgroundImage})`,
           backgroundSize: "cover",
         }}
-        className="w-[70%] aspect-[60/43] py-6 pt-20"
+        className="w-[70%] aspect-[60/43] py-6 pt-20 overflow-hidden"
       >
         <h2 className="text-[2.5rem] text-center text-white font-bold tracking-wider">
           Takmičite se i osvajajte vrh!
@@ -89,7 +89,7 @@ const Leaderboard: React.FC = () => {
             image={tempTopScores[0].image}
             name="Jasmin Fajkic"
             points={150}
-            className="mt-10 shadow-white"
+            className="my-10 shadow-white"
           />
         </div>
       </div>

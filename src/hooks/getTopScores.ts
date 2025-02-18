@@ -7,8 +7,10 @@ interface User {
   placement: number;
 }
 
-export const useSortUsers = (users: User[]): User[] => {
+export const useSortUsers = async (users: User[]): User[] => {
   const [sortedUsers, setSortedUsers] = useState<User[]>([]);
+
+  const response = await fetch("/api/users")
 
   useEffect(() => {
     if (users.length > 0) {

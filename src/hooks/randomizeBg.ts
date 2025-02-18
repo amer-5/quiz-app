@@ -14,13 +14,11 @@ const useRandomizeBg = (initial: string | null = null) => {
   const prevBg = () => {
     const newIndex =
       currentIndex - 1 >= 0 ? currentIndex - 1 : bgImages.length - 1;
-    console.log(newIndex);
     setRandomBg(bgImages[newIndex]);
   };
 
   const nextBg = () => {
     const newIndex = currentIndex + 1 < bgImages.length ? currentIndex + 1 : 0;
-    console.log(newIndex);
     setRandomBg(bgImages[newIndex]);
   };
 

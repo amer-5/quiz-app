@@ -1,4 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import usePopup from "../hooks/togglePopup";
+import registerUser from "../hooks/useRegister";
 
 import Auth from "../components/auth";
 import AuthButton from "../components/authButton";
@@ -9,6 +12,33 @@ import googleIco from "../assets/icons/google.png";
 import Logo from "../assets/logo.svg";
 
 const Register = () => {
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  const navigate = useNavigate();
+  const { openPopup } = usePopup();
+
+  const handleRegister = async () => {
+    const { success, message } = await registerUser(
+      email,
+      password,
+      firstName,
+      lastName,
+      username
+    );
+
+    if (success) {
+      openPopup();
+      navigate("/");
+    } else {
+      setError(message || "Došlo je do greške prilikom registracije.");
+    }
+  };
+
   return (
     <div className="w-screen h-screen flex overflow-hidden">
       <Auth />
@@ -19,13 +49,32 @@ const Register = () => {
         <AuthButton providerImg={googleIco} providerName="Google" />
         <p className="opacity-40 text-center font-light my-6">ili</p>
         <div className="space-y-8 my-6">
-          <Input inputPlaceholder="E-mail adresa" />
-          <Input inputPlaceholder="Korisničko ime" />
-          <Input inputPlaceholder="Lozinka" type="password" />
-          <Input inputPlaceholder="Ponovite Lozinku" type="password" />
+          <Input
+            inputPlaceholder="Korisničko ime"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <Input
+            inputPlaceholder="Ime"
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+          <Input
+            inputPlaceholder="Prezime"
+            onChange={(e) => setLastName(e.target.value)}
+          />
+          <Input
+            inputPlaceholder="E-mail adresa"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            inputPlaceholder="Lozinka"
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
+        {error && <p className="text-red-500 mb-4">{error}</p>}
         <Button
           buttonText="Registruj se"
+          onClick={handleRegister}
           className="w-full bg-[#2559D2] text-white rounded-[10px] py-3.5 my-4 mt-14 cursor-pointer"
         />
         <div className="flex items-center justify-center gap-2">

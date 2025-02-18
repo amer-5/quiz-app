@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import bg from "../assets/blue-bg2.png";
 import emoji from "../assets/icons/emoji.png";
 import Button from "./button";
-import usePopup from "../hooks/tooglePopup";
+import usePopup from "../hooks/togglePopup";
 
 const QuizPopup: React.FC = () => {
   const { closePopup } = usePopup();

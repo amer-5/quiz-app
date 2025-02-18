@@ -5,7 +5,7 @@ import magic_wand from "../assets/icons/magic_wand.svg";
 import Card from "../components/card";
 import Button from "../components/button";
 import QuizPopup from "../components/quizPopup";
-import usePopup from "../hooks/tooglePopup";
+import usePopup from "../hooks/togglePopup";
 import { Link } from "react-router-dom";
 
 const Guides: React.FC = () => {

@@ -1,7 +1,7 @@
 import Button from "../components/button";
 import bgImage from "../assets/home-bg.png";
 import QuizPopup from "../components/quizPopup";
-import usePopup from "../hooks/tooglePopup";
+import usePopup from "../hooks/togglePopup";
 
 const odigranihKvizova = 0;
 
