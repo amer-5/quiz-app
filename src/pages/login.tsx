@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import loginUser from "../hooks/useLogin";
+import togglePopup from "../hooks/togglePopup";
 
 import Auth from "../components/auth";
 import AuthButton from "../components/authButton";
@@ -14,15 +15,27 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+  const { openPopup } = togglePopup();
+
   const handleLogin = async () => {
     const { success, message } = await loginUser(email, password);
 
     if (success) {
       console.log(message);
+      navigate("/");
+      openPopup();
     } else {
       console.error(message || "Došlo je do greške prilikom prijave.");
     }
   };
+
+  document.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      handleLogin();
+    }
+    console.log(e.key);
+  });
 
   return (
     <div className="w-screen h-screen flex overflow-hidden">

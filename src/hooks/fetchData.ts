@@ -1,0 +1,36 @@
+interface FetchObject {
+  method?: string;
+  headers?: Record<string, string>;
+  body?: string;
+}
+
+interface FetchParams {
+  url: string;
+  object?: FetchObject;
+}
+
+const fetchData = async ({ url, object }: FetchParams) => {
+  try {
+    const response = await fetch(url, {
+      method: object?.method || "GET",
+      headers: {
+        "Content-Type": "application/json",
+        ...object?.headers,
+      },
+      body: object?.body,
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(
+        errorData.message || "Došlo je greške"
+      );
+    }
+
+    return response.json();
+  } catch (error) {
+    throw new Error(error instanceof Error ? error.message : "Greška");
+  }
+};
+
+export default fetchData;
