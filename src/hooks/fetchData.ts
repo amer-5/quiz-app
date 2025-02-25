@@ -10,11 +10,13 @@ interface FetchParams {
 }
 
 const fetchData = async ({ url, object }: FetchParams) => {
+  const token = localStorage.getItem("token")
   try {
     const response = await fetch(url, {
       method: object?.method || "GET",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
         ...object?.headers,
       },
       body: object?.body,

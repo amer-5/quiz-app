@@ -9,6 +9,7 @@ interface LoginResponse {
   success: boolean;
   message?: string;
   token?: string;
+  statusCode?: number;
 }
 
 const loginUser = async (
@@ -35,6 +36,25 @@ const loginUser = async (
     }
   } catch (error) {
     console.log(error);
+
+    if (error instanceof Error && "statusCode" in error) {
+      const statusCode = (error).statusCode;
+
+      if (statusCode === 404) {
+        return {
+          success: false,
+          message: "Korisnik sa ovom e-mail adresom nije pronađen.",
+          statusCode,
+        };
+      } else if (statusCode === 401) {
+        return {
+          success: false,
+          message: "Netačna lozinka. Pokušajte ponovo.",
+          statusCode,
+        };
+      }
+    }
+
     return {
       success: false,
       message: error instanceof Error ? error.message : "Došlo je do greške.",

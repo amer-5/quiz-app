@@ -32,8 +32,8 @@ const Register = () => {
     );
 
     if (success) {
-      openPopup();
       navigate("/");
+      openPopup();
     } else {
       setError(message || "Došlo je do greške prilikom registracije.");
     }
@@ -71,7 +71,7 @@ const Register = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        {error && <p className="text-red-500 mb-4">{error}</p>}
+        {error && <p className="text-red-500 mb-4">{error && "Došlo je do greške prilikom registracije"}</p>}
         <Button
           buttonText="Registruj se"
           onClick={handleRegister}
