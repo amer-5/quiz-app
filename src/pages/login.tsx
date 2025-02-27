@@ -15,11 +15,13 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const { openPopup } = togglePopup();
 
   const handleLogin = async () => {
+    setLoading(true);
     try {
       const { success, message, statusCode } = await loginUser(email, password);
 
@@ -39,6 +41,8 @@ const Login = () => {
     } catch (error) {
       console.error(error);
       setError("Došlo je do greške prilikom prijave. Pokušajte ponovo.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -75,6 +79,7 @@ const Login = () => {
         )}
         <Button
           buttonText="Prijavi se"
+          loading={loading}
           onClick={handleLogin}
           className="w-full bg-[#2559D2] text-white rounded-[10px] py-3.5 my-4 cursor-pointer"
         />

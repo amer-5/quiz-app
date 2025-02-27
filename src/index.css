@@ -5,3 +5,12 @@
   font-family: "Steradian TRIAL", sans-serif;
   overflow-x: hidden;
 }
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #5987f5;
+  border-radius: 0.25rem;
+}
