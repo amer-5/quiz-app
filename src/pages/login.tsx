@@ -20,7 +20,10 @@ const Login = () => {
   const navigate = useNavigate();
   const { openPopup } = togglePopup();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e?: React.FormEvent) => {
+    if (e) {
+      e.preventDefault(); // Spriječite defaultno ponašanje forme
+    }
     setLoading(true);
     try {
       const { success, message, statusCode } = await loginUser(email, password);
@@ -55,7 +58,7 @@ const Login = () => {
         <p className="opacity-60 mb-10">Unesite informacije za prijavu</p>
         <AuthButton providerImg={googleIco} providerName="Google" />
         <p className="opacity-40 text-center font-light my-6">ili</p>
-        <div className="space-y-8 my-6">
+        <form onSubmit={handleLogin} className="space-y-8 my-6">
           <Input
             inputPlaceholder="E-mail adresa"
             onChange={(e) => setEmail(e.target.value)}
@@ -65,24 +68,24 @@ const Login = () => {
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
-        </div>
-        <div className="flex items-center justify-between mb-12">
-          <p className="opacity-60">Zaboravili ste lozinku?</p>
-          <Link to="/reset-pw" className="text-[#2559D2]">
-            Resetuj lozinku
-          </Link>
-        </div>
-        {error && (
-          <p className="text-red-500 mb-4">
-            {error && "Došlo je do greške prilikom prijave"}
-          </p>
-        )}
-        <Button
-          buttonText="Prijavi se"
-          loading={loading}
-          onClick={handleLogin}
-          className="w-full bg-[#2559D2] text-white rounded-[10px] py-3.5 my-4 cursor-pointer"
-        />
+          <div className="flex items-center justify-between mb-12">
+            <p className="opacity-60">Zaboravili ste lozinku?</p>
+            <Link to="/reset-pw" className="text-[#2559D2]">
+              Resetuj lozinku
+            </Link>
+          </div>
+          {error && (
+            <p className="text-red-500 mb-4">
+              {error && "Došlo je do greške prilikom prijave"}
+            </p>
+          )}
+          <Button
+            buttonText="Prijavi se"
+            loading={loading}
+            onClick={handleLogin}
+            className="w-full bg-[#2559D2] text-white rounded-[10px] py-3.5 my-4 cursor-pointer"
+          />
+        </form>
         <div className="flex items-center justify-center gap-2">
           <p className="opacity-60">Nemate račun?</p>
           <Link to="/register" className="text-[#2559D2]">

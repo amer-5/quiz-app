@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import bg from "../assets/blue-bg2.png";
-import emoji from "../assets/icons/emoji.png";
+import emoji from "../assets/icons/popup1.png";
 import Button from "./button";
 import usePopup from "../hooks/togglePopup";
 
@@ -20,7 +20,7 @@ const QuizPopup: React.FC = () => {
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
         }}
-        className="w-[75vw] aspect-[19/10] fixed left-[50%] translate-[-50%] top-[50%] z-50 flex flex-col justify-around items-center py-8 rounded-[16px]"
+        className="w-[90vw] aspect-[19/10] fixed left-[50%] translate-[-50%] top-[50%] z-50 flex flex-col justify-around items-center py-8 rounded-[16px]"
       >
         <h2 className="text-white font-bold text-[2.5rem] text-center">
           Spremite se za Quiz BiH

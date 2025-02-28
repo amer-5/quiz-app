@@ -12,6 +12,7 @@ import Leaderboard from "./pages/leaderboard.tsx";
 import Quiz from "./pages/quiz.tsx";
 import Login from "./pages/login.tsx";
 import Register from "./pages/register.tsx";
+import QuizDonePopup from "./components/quizDonePopup.tsx";
 
 const AppContent = () => {
   const location = useLocation();
@@ -20,7 +21,7 @@ const AppContent = () => {
   );
 
   return (
-    <>
+    <div className="z-10">
       {isLoginOrRegister || <Navigation />}
       <Routes>
         <Route path="/" element={<Home />} />
@@ -30,8 +31,9 @@ const AppContent = () => {
         <Route path="/quiz" element={<Quiz />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/test" element={<QuizDonePopup />} />
       </Routes>
-    </>
+    </div>
   );
 };
 

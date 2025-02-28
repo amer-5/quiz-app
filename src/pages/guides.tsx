@@ -4,7 +4,7 @@ import Image3 from "../assets/cards/card-3.png";
 import magic_wand from "../assets/icons/magic_wand.svg";
 import Card from "../components/card";
 import Button from "../components/button";
-import QuizPopup from "../components/quizPopup";
+import QuizPopup from "../components/quizStartPopup";
 import usePopup from "../hooks/togglePopup";
 import { Link } from "react-router-dom";
 

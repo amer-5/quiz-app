@@ -23,7 +23,10 @@ const Register = () => {
   const navigate = useNavigate();
   const { openPopup } = usePopup();
 
-  const handleRegister = async () => {
+  const handleRegister = async (e?: React.FormEvent) => {
+    if (e) {
+      e.preventDefault();
+    }
     setLoading(true);
     try {
       const { success, message } = await registerUser(
@@ -56,7 +59,7 @@ const Register = () => {
         <p className="opacity-60 mb-10">Popunite informacije za registraciju</p>
         <AuthButton providerImg={googleIco} providerName="Google" />
         <p className="opacity-40 text-center font-light my-6">ili</p>
-        <div className="space-y-8 my-6">
+        <form onSubmit={handleRegister} className="space-y-8 my-6">
           <Input
             inputPlaceholder="Korisničko ime"
             onChange={(e) => setUsername(e.target.value)}
@@ -78,18 +81,18 @@ const Register = () => {
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
-        </div>
-        {error && (
-          <p className="text-red-500 mb-4">
-            {error && "Došlo je do greške prilikom registracije"}
-          </p>
-        )}
-        <Button
-          buttonText="Registruj se"
-          loading={loading}
-          onClick={handleRegister}
-          className="w-full bg-[#2559D2] text-white rounded-[10px] py-3.5 my-4 mt-14 cursor-pointer"
-        />
+          {error && (
+            <p className="text-red-500 mb-4">
+              {error && "Došlo je do greške prilikom registracije"}
+            </p>
+          )}
+          <Button
+            buttonText="Registruj se"
+            loading={loading}
+            onClick={handleRegister}
+            className="w-full bg-[#2559D2] text-white rounded-[10px] py-3.5 my-4 mt-14 cursor-pointer"
+          />
+        </form>
         <div className="flex items-center justify-center gap-2">
           <p className="opacity-60">Već imate račun?</p>
           <Link to="/login" className="text-[#2559D2]">

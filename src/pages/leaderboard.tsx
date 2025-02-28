@@ -1,7 +1,7 @@
 import ScoreCard from "../components/scoreCard";
 import Button from "../components/button";
 import backgroundImage from "../assets/blue-bg.png";
-import QuizPopup from "../components/quizPopup";
+import QuizPopup from "../components/quizStartPopup";
 import usePopup from "../hooks/togglePopup";
 // import { useSortUsers, useUserPlacement } from "../hooks/getTopScores";
 

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import fetchData from "./fetchData";
 
 interface User {
   name: string;
@@ -7,10 +8,10 @@ interface User {
   placement: number;
 }
 
-export const useSortUsers = async (users: User[]): User[] => {
+export const useSortUsers = (users: User[]): User[] => {
   const [sortedUsers, setSortedUsers] = useState<User[]>([]);
 
-  const response = await fetch("/api/users")
+  fetchData({ url: "/api/users" }).then((data) => setSortedUsers(data));
 
   useEffect(() => {
     if (users.length > 0) {
