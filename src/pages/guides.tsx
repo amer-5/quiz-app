@@ -35,10 +35,9 @@ const Guides: React.FC = () => {
         </div>
         <div>
           <Button
-            buttonText="Započni kviz"
             onClick={openPopup}
             className="bg-[#2559D2] border-[#2559D2] border-[1px] font-bold text-xl tracking-wide text-white rounded-[5px] px-20 py-3 cursor-pointer"
-          />
+          >Započni kviz</Button>
         </div>
       </div>
       <div className="flex w-[calc(100vw-12.5rem)] mx-auto gap-10 mt-10 pb-24">

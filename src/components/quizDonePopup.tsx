@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import bg from "../assets/blue-bg2.png";
 import emoji from "../assets/icons/popup2.png";
 import Button from "./button";
@@ -6,13 +6,19 @@ import usePopup from "../hooks/togglePopup";
 
 const QuizDonePopup: React.FC = () => {
   const { closePopup } = usePopup();
+  const navigate = useNavigate();
   const points = 120;
+
+  const handleClose = () => {
+    closePopup();
+    navigate("/");
+  }
 
   return (
     <div
       className=" fixed inset-0 bg-opacity-50 backdrop-blur-xs z-40 transition-3"
       id="popup"
-      onClick={closePopup}
+      onClick={handleClose}
     >
       <div
         style={{
@@ -27,16 +33,14 @@ const QuizDonePopup: React.FC = () => {
           Čestitamo na završenom kvizu
         </h2>
         <p className="text-white opacity-60 py-6">Osvojili ste:</p>
-        <Button
-          buttonText={`${points} bodova`}
-          className="text-[#2559D2] font-bold text-xl bg-white rounded-[10px] py-4 px-25 shadow-[0px_0px_10px_1px_#ffffff]"
-        />
+        <Button className="text-[#2559D2] font-bold text-xl bg-white rounded-[10px] py-4 px-25 shadow-[0px_0px_10px_1px_#ffffff]">{`${points} bodova`}</Button>
         <img src={emoji} alt="/" className="my-4 mt-6 scale-125 pt-6" />
         <Button
-          buttonText="Zatvori"
           onClick={closePopup}
           className="text-white font-bold text-xl rounded-[10px] py-4 px-29 shadow-[0px_0px_10px_1px_#5788FA] mt-14 cursor-pointer"
-        />
+        >
+          Zatvori
+        </Button>
       </div>
     </div>
   );

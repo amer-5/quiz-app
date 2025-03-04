@@ -1,14 +1,14 @@
 import { useState } from "react";
 
 interface ButtonProps {
-  buttonText: string;
+  children: string;
   loading?: boolean;
   className?: string;
   onClick?: () => void;
 }
 
 const Button: React.FC<ButtonProps> = ({
-  buttonText,
+  children,
   className,
   onClick,
   loading = false,
@@ -21,8 +21,11 @@ const Button: React.FC<ButtonProps> = ({
   }, 1000);
 
   return (
-    <button className={`${className} ${loading ? "opacity-60" : ""}`} onClick={onClick}>
-      {loading ? text : buttonText}
+    <button
+      className={`${className} ${loading ? "opacity-60" : ""}`}
+      onClick={onClick}
+    >
+      {loading ? text : children}
     </button>
   );
 };

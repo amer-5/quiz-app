@@ -70,10 +70,9 @@ const Leaderboard: React.FC = () => {
           najbolji i zauzmite svoje mjesto na leaderboardu!
         </p>
         <Button
-          buttonText="Započni kviz!"
           onClick={openPopup}
           className="bg-white text-[#2559D2] text-[1.25rem] font-bold rounded-[5px] py-3 px-20 cursor-pointer relative left-[50%] translate-x-[-50%] my-3 mt-8"
-        />
+        >Započni kviz</Button>
         <div className="flex flex-col items-center justify-center gap-3 mt-14">
           {tempTopScores.map((user) => (
             <ScoreCard

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import bg from "../assets/blue-bg2.png";
 import emoji from "../assets/icons/popup1.png";
 import Button from "./button";
@@ -6,6 +6,14 @@ import usePopup from "../hooks/togglePopup";
 
 const QuizPopup: React.FC = () => {
   const { closePopup } = usePopup();
+  const navigate = useNavigate();
+  const isLogged: boolean =
+    localStorage.getItem("token")?.length > 0 ? true : false;
+
+  const handleButtonClick = () => {
+    if (!isLogged) navigate("/login");
+    else navigate("/quiz");
+  };
 
   return (
     <div
@@ -32,12 +40,14 @@ const QuizPopup: React.FC = () => {
           svoje znanje? Sretno! 🎉
         </p>
         <img src={emoji} alt="/" className="my-4 mt-6 scale-125" />
-        <Link to="../quiz">
-          <Button
-            buttonText="Započni kviz"
-            className="bg-white text-[#2559D2] font-bold rounded-[10px] text-[1.25rem] py-4 px-30 cursor-pointer"
-          />
-        </Link>
+        <Button
+          className={`bg-white text-[#2559D2] font-bold rounded-[10px] text-[1.25rem] py-4 px-30 cursor-pointer ${
+            !isLogged ? "bg-red-400 opacity-50 cursor-not-allowed" : ""
+          }`}
+          onClick={handleButtonClick}
+        >
+          {isLogged ? "Započni kviz" : "Prijavite se"}
+        </Button>
       </div>
     </div>
   );

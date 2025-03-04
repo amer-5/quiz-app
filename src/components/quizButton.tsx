@@ -5,7 +5,7 @@ import clock from "../assets/icons/clock.svg";
 
 interface quizButtonProps {
   name: string;
-  value: string;
+  value: number;
   type: string;
 }
 

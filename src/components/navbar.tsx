@@ -10,16 +10,14 @@ const Navigation: React.FC = () => {
       return (
         <>
           <Link to="/login">
-            <Button
-              buttonText="Prijavi se"
-              className="text-[#2559D2] border-[#2559D2] border-[1px] rounded-[5px] px-6 py-2 tracking-wider cursor-pointer"
-            />
+            <Button className="text-[#2559D2] border-[#2559D2] border-[1px] rounded-[5px] px-6 py-2 tracking-wider cursor-pointer">
+              Prijavi se
+            </Button>
           </Link>
           <Link to="/register">
-            <Button
-              buttonText="Registruj se"
-              className="bg-[#2559D2] border-[#2559D2] border-[1px] text-white rounded-[5px] px-6 py-2 tracking-wider cursor-pointer"
-            />
+            <Button className="bg-[#2559D2] border-[#2559D2] border-[1px] text-white rounded-[5px] px-6 py-2 tracking-wider cursor-pointer">
+              Registruj se
+            </Button>
           </Link>
         </>
       );
@@ -28,9 +26,10 @@ const Navigation: React.FC = () => {
       <Link to="/login">
         <Button
           onClick={() => localStorage.removeItem("token")}
-          buttonText="Odjavi se"
           className="text-[#2559D2] border-[#2559D2] border-[1px] rounded-[5px] px-6 py-2 tracking-wider cursor-pointer"
-        />
+        >
+          Odjavi se
+        </Button>
       </Link>
     );
   };
@@ -38,7 +37,7 @@ const Navigation: React.FC = () => {
   return (
     <div className="w-screen py-15 px-30 flex justify-between items-center">
       <Link to="/">
-        <img src={Logo} />
+        <img src={Logo} alt="Logo" />
       </Link>
       <div className="flex gap-5">
         <Link to="/">
