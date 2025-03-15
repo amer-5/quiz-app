@@ -53,10 +53,9 @@ const Navigation: React.FC = () => {
   return (
     <div className="w-screen 2xl:py-15 2xl:px-30 xl:py-14 xl:px-28 lg:py-13 lg:px-26 md:py-12 md:px-18 py-11 px-10 flex justify-between items-center relative">
       <Link to="/">
-        <img src={Logo} alt="Logo" />
+        <img src={Logo} alt="Logo" className="h-5 md:h-11"/>
       </Link>
 
-      {/* Hamburger dugme */}
       <div className="md:hidden cursor-pointer" onClick={toggleMenu}>
         <div className="space-y-1">
           <span className="block w-6 h-0.5 bg-[#2559D2]"></span>
@@ -65,7 +64,6 @@ const Navigation: React.FC = () => {
         </div>
       </div>
 
-      {/* Desktop navigacija */}
       <div className="hidden md:flex gap-5">
         <Link to="/">
           <p>Početna</p>
@@ -79,7 +77,6 @@ const Navigation: React.FC = () => {
       </div>
       <div className="hidden md:flex gap-7">{Buttons(isLogged, closeMenu)}</div>
 
-      {/* Mobilni meni s animacijom */}
       <div
         className={`md:hidden fixed inset-0 bg-white z-50 flex flex-col items-center justify-center space-y-6 transition-transform duration-300 ease-in-out ${
           isOpened ? "translate-y-0" : "-translate-y-full"
