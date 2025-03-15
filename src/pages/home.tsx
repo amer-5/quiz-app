@@ -13,8 +13,8 @@ const Home: React.FC = () => {
       {/* Tekstualni sadržaj na lijevoj strani */}
       <div className="ml-24">
         <h1 className="text-black text-[4rem] font-bold w-[calc(50vw-12.5rem)]">
-          Pokažite svoje znanje o{" "}
-          <span className="text-[#2559D2]">Bosni i Hercegovini</span>
+          Pokažite svoje znanje o
+          <span className="text-[#2559D2]"> Bosni i Hercegovini</span>
         </h1>
         <p className="text-black opacity-60 text-xl tracking-wide my-6 w-[calc(50vw-12.5rem)]">
           Testirajte svoje znanje o historiji, kulturi i znamenitostima naše
@@ -30,7 +30,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* Slika na desnoj strani */}
-      <div className="flex-1 flex justify-end">
+      <div className="flex-1 flex justify-start">
         <img
           src={bgImage}
           alt="Background"

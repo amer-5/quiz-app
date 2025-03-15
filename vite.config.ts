@@ -8,9 +8,9 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://0c6e-77-239-14-36.ngrok-free.app", // URL vašeg servera
-        changeOrigin: true, // Promeni origin u zahtevu
-        rewrite: (path) => path.replace(/^\/api/, ""), // Ukloni /api iz putanje
+        target: "https://0c6e-77-239-14-36.ngrok-free.app",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },

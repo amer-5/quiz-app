@@ -14,3 +14,14 @@
   background: #5987f5;
   border-radius: 0.25rem;
 }
+
+@media (max-width: 767px) {
+  .scrollable-cards {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .scrollable-cards::-webkit-scrollbar {
+    display: none;
+  }
+}
