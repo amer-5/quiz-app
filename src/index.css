@@ -15,6 +15,14 @@
   border-radius: 0.25rem;
 }
 
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 @media (max-width: 767px) {
   .scrollable-cards {
     overflow-x: auto;
