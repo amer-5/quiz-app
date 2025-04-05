@@ -11,25 +11,6 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #5988f5;
+  background: #5987f5;
   border-radius: 0.25rem;
-}
-
-.hide-scrollbar {
-  scrollbar-width: none;
-}
-
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-@media (max-width: 767px) {
-  .scrollable-cards {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-  .scrollable-cards::-webkit-scrollbar {
-    display: none;
-  }
 }

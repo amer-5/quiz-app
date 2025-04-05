@@ -1,5 +1,6 @@
 import trophy from "../assets/icons/trophy.svg";
 import medal from "../assets/icons/medal.svg";
+import star from "../assets/icons/star.svg";
 import clock from "../assets/icons/clock.svg";
 
 interface quizButtonProps {
@@ -20,6 +21,10 @@ const QuizButton: React.FC<quizButtonProps> = ({ name, value, type }) => {
       image = medal;
       color = "#FBBC05";
       break;
+    case "streak":
+      image = star;
+      color = "#EA4335";
+      break;
     case "time":
       image = clock;
       color = "#9747FF";
@@ -27,8 +32,8 @@ const QuizButton: React.FC<quizButtonProps> = ({ name, value, type }) => {
   }
 
   return (
-    <div className="gap-2 inline-flex items-center justify-center shadow-[0px_4px_10px_1px_#00000026] rounded-[5px] py-2.5 md:py-2.75 px-3 md:px-6">
-      <img src={image} className="aspect-square h-5 md:h-7.5"/>
+    <div className="gap-2 inline-flex items-center justify-center shadow-[0px_4px_10px_1px_#00000026] rounded-[5px] py-2.75 px-6">
+      <img src={image} />
       <div style={{ color }}>{`${name}: ${value}`}</div>
     </div>
   );

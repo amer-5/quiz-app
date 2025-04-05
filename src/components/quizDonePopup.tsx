@@ -12,11 +12,11 @@ const QuizDonePopup: React.FC = () => {
   const handleClose = () => {
     closePopup();
     navigate("/");
-  };
+  }
 
   return (
     <div
-      className="hidden fixed inset-0 bg-opacity-50 backdrop-blur-xs z-40 transition-3"
+      className=" fixed inset-0 bg-opacity-50 backdrop-blur-xs z-40 transition-3"
       id="popup"
       onClick={handleClose}
     >
@@ -27,23 +27,17 @@ const QuizDonePopup: React.FC = () => {
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
         }}
-        className="w-screen h-screen rounded-0 md:w-[90vw] md:aspect-[19/10] fixed left-[50%] translate-[-50%] top-[50%] z-50 flex flex-col justify-center md:justify-around items-center py-8 md:rounded-[16px]"
+        className="w-[90vw] aspect-[19/10] fixed left-[50%] translate-[-50%] top-[50%] z-50 flex flex-col items-center py-8 rounded-[16px]"
       >
-        <h2 className="text-white font-bold text-2xl md:text-[2.5rem] text-center">
+        <h2 className="text-5xl text-center font-bold text-white overflow-hidden pt-20">
           Čestitamo na završenom kvizu
         </h2>
-        <p className="text-[0.825rem] md:text-[1rem] text-white text-center opacity-60 w-[90vw] my-5 md:my-0 md:w-2/3">
-          Osvojili ste:
-        </p>
-        <Button className="text-[#2559D2] font-bold text-xl bg-white rounded-[10px] py-3 md:py-4 w-[75vw] md:w-auto px-0 md:px-25 shadow-[0px_0px_10px_1px_#ffffff]">{`${points} bodova`}</Button>
-        <img
-          src={emoji}
-          alt="/"
-          className="md:my-4 md:mt-6 scale-90 my-3 mt-4 md:scale-125"
-        />
+        <p className="text-white opacity-60 py-6">Osvojili ste:</p>
+        <Button className="text-[#2559D2] font-bold text-xl bg-white rounded-[10px] py-4 px-25 shadow-[0px_0px_10px_1px_#ffffff]">{`${points} bodova`}</Button>
+        <img src={emoji} alt="/" className="my-4 mt-6 scale-125 pt-6" />
         <Button
-          onClick={handleClose}
-          className="text-white font-bold text-xl rounded-[10px] py-3 md:py-4 w-[70vw] md:w-auto px-0 md:px-29 shadow-[0px_0px_10px_1px_#5788FA] md:mt-14 cursor-pointer"
+          onClick={closePopup}
+          className="text-white font-bold text-xl rounded-[10px] py-4 px-29 shadow-[0px_0px_10px_1px_#5788FA] mt-14 cursor-pointer"
         >
           Zatvori
         </Button>
