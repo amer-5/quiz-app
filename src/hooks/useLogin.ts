@@ -20,25 +20,23 @@ const loginUser = async (
 
   try {
     const data = await fetchData({
-      url: "/api/login",
+      url: "http://localhost:3000/auth/login",
       object: { method: "POST", body: JSON.stringify(userData) },
     });
 
-    if (data?.user?.token) {
-      localStorage.setItem("token", data.user.token);
+    if (data?.token) {
+      localStorage.setItem("token", data.token);
       return {
         success: true,
         message: "Uspešno ste se prijavili!",
-        token: data.user.token,
+        token: data.token,
       };
     } else {
       throw new Error("Token nije pronađen u odgovoru.");
     }
   } catch (error) {
-    console.log(error);
-
     if (error instanceof Error && "statusCode" in error) {
-      const statusCode = (error).statusCode;
+      const statusCode = error.statusCode;
 
       if (statusCode === 404) {
         return {

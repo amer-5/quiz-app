@@ -1,6 +1,5 @@
 interface scoreCardProps {
   placement: number;
-  image: string;
   name: string;
   points: number;
   className?: string;
@@ -8,7 +7,6 @@ interface scoreCardProps {
 
 const ScoreCard: React.FC<scoreCardProps> = ({
   placement,
-  image,
   name,
   points,
   className,
@@ -21,11 +19,6 @@ const ScoreCard: React.FC<scoreCardProps> = ({
         <span className="text-black font-bold ml-2.5 box-border">
           #{placement}
         </span>
-        <img
-          className="w-8 h-8 ml-4 my- rounded-full"
-          src={image}
-          alt="Profile"
-        />
         <p className="ml-4">{name}</p>
       </div>
       <p className="text-right mr-2.5 tracking-wider">{points} Bodova</p>

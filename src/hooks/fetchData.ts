@@ -10,7 +10,7 @@ interface FetchParams {
 }
 
 const fetchData = async ({ url, object }: FetchParams) => {
-  const token = localStorage.getItem("token")
+  const token = localStorage.getItem("token");
   try {
     const response = await fetch(url, {
       method: object?.method || "GET",
@@ -24,12 +24,11 @@ const fetchData = async ({ url, object }: FetchParams) => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(
-        errorData.message || "Došlo je greške"
-      );
+      throw new Error(errorData.message || "Došlo je greške");
     }
 
-    return response.json();
+    const data = await response.json();
+    return data;
   } catch (error) {
     throw new Error(error instanceof Error ? error.message : "Greška");
   }

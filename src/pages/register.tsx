@@ -13,8 +13,6 @@ import Logo from "../assets/logo.svg";
 
 const Register = () => {
   const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -32,8 +30,6 @@ const Register = () => {
       const { success, message } = await registerUser(
         email,
         password,
-        firstName,
-        lastName,
         username
       );
 
@@ -44,7 +40,8 @@ const Register = () => {
         setError(message || "Došlo je do greške prilikom registracije.");
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      setError("Došlo je do greške prilikom prijave. Pokušajte ponovo.");
     } finally {
       setLoading(false);
     }
@@ -55,9 +52,11 @@ const Register = () => {
       <div className="sm:block hidden">
         <Auth />
       </div>
-      <div className="sm:w-3/7 w-screen sm:px-[3.75rem] px-8 py-24 sm:overflow-hidden overflow-auto">
+      <div className="sm:w-4/7 w-screen sm:px-[3.75rem] px-8 py-24 sm:overflow-hidden overflow-auto">
         <img src={Logo} alt="logo" className="w-24 sm:mb-6 mb-8" />
-        <h2 className="sm:text-[2rem] text-2xl font-bold">Registrujte se na Quiz BiH</h2>
+        <h2 className="sm:text-[2rem] text-2xl font-bold">
+          Registrujte se na Quiz BiH
+        </h2>
         <p className="opacity-60 mb-10">Popunite informacije za registraciju</p>
         <AuthButton providerImg={googleIco} providerName="Google" />
         <p className="opacity-40 text-center font-light my-6">ili</p>
@@ -65,14 +64,6 @@ const Register = () => {
           <Input
             inputPlaceholder="Korisničko ime"
             onChange={(e) => setUsername(e.target.value)}
-          />
-          <Input
-            inputPlaceholder="Ime"
-            onChange={(e) => setFirstName(e.target.value)}
-          />
-          <Input
-            inputPlaceholder="Prezime"
-            onChange={(e) => setLastName(e.target.value)}
           />
           <Input
             inputPlaceholder="E-mail adresa"
@@ -92,7 +83,9 @@ const Register = () => {
             loading={loading}
             onClick={handleRegister}
             className="w-full bg-[#2559D2] text-white rounded-[10px] py-3.5 my-4 mt-14 cursor-pointer"
-          >Registruj se</Button>
+          >
+            Registruj se
+          </Button>
         </form>
         <div className="flex items-center justify-center gap-2">
           <p className="opacity-60">Već imate račun?</p>

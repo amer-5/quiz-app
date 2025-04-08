@@ -1,49 +1,64 @@
+import fetchData from "./fetchData.ts";
+
 interface UserData {
   email: string;
   password: string;
-  firstName: string;
-  lastName: string;
   username: string;
+}
+
+interface RegisterResponse {
+  success: boolean;
+  message?: string;
+  token?: string;
+  statusCode?: number;
 }
 
 const registerUser = async (
   email: string,
   password: string,
-  firstName: string,
-  lastName: string,
   username: string
-): Promise<{ success: boolean; message?: string }> => {
+): Promise<RegisterResponse> => {
   const userData: UserData = {
     email,
     password,
-    firstName,
-    lastName,
     username,
   };
 
   try {
-    const response = await fetch("/api/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
+    const data = await fetchData({
+      url: "http://localhost:3000/auth/register",
+      object: { method: "POST", body: JSON.stringify(userData) },
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(
-        errorData.message || "Došlo je do greške prilikom registracije."
-      );
+    if (data?.token) {
+      localStorage.setItem("token", data.token);
+      return {
+        success: true,
+        message: "Uspešno ste se prijavili!",
+        token: data.token,
+      };
+    } else {
+      throw new Error("Token nije pronađen u odgovoru.");
+    }
+  } catch (error) {
+    if (error instanceof Error && "statusCode" in error) {
+      const statusCode = error.statusCode;
+
+      if (statusCode === 404) {
+        return {
+          success: false,
+          message: "Korisnik sa ovom e-mail adresom nije pronađen.",
+          statusCode,
+        };
+      } else if (statusCode === 401) {
+        return {
+          success: false,
+          message: "Netačna lozinka. Pokušajte ponovo.",
+          statusCode,
+        };
+      }
     }
 
-    const data = await response.json();
-
-    localStorage.setItem("token", data.user.token)
-
-    return { success: true, message: "Uspešno ste se registrovali!" };
-  } catch (error) {
-    console.error("Došlo je do greške prilikom registracije:", error);
     return {
       success: false,
       message: error instanceof Error ? error.message : "Došlo je do greške.",
