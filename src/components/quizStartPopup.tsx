@@ -7,8 +7,7 @@ import usePopup from "../hooks/togglePopup";
 const QuizPopup: React.FC = () => {
   const { closePopup } = usePopup();
   const navigate = useNavigate();
-  const isLogged: boolean =
-    localStorage.getItem("token")?.length > 0 ? true : false;
+  const isLogged = Boolean(localStorage.getItem("token")?.length);
 
   const handleButtonClick = () => {
     if (!isLogged) navigate("/login");

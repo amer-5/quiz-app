@@ -9,11 +9,21 @@ import CountdownBar from "../components/countdown";
 import Answer from "../components/answer";
 import QuizDonePopup from "../components/quizDonePopup";
 
+interface Option {
+  text: string;
+  [key: string]: unknown;
+}
+
+interface Question {
+  _id: string;
+  title: string;
+  options: Option[];
+}
+
 const Quiz: React.FC = () => {
   const [score, setScore] = useState(0);
-  const [question, setQuestion] = useState<any>(null);
-  const [gameId, setGameId] = useState<any>(null);
-  const [isGameOver, setIsGameOver] = useState(false);
+  const [question, setQuestion] = useState<Question | null>(null);
+  const [gameId, setGameId] = useState<unknown>(null);
   const [timeLeft, setTimeLeft] = useState(30);
   const isMobile = window.innerWidth < 768;
 
@@ -55,7 +65,6 @@ const Quiz: React.FC = () => {
 
   useEffect(() => {
     if (timeLeft === 0) {
-      setIsGameOver(true);
       openPopup();
     }
   }, [timeLeft, openPopup]);
@@ -77,7 +86,6 @@ const Quiz: React.FC = () => {
       });
 
       if (response.gameOver) {
-        setIsGameOver(true);
         openPopup();
       } else {
         setScore(response.score);
@@ -90,7 +98,6 @@ const Quiz: React.FC = () => {
   };
 
   const handleEndQuiz = () => {
-    setIsGameOver(true);
     openPopup();
   };
 
@@ -130,7 +137,7 @@ const Quiz: React.FC = () => {
             <CountdownBar time={30} />
           </div>
           <div className="flex flex-col gap-6 p-6 md:p-15">
-            {question?.options?.map((option: unknown, index: number) => (
+            {question?.options?.map((option: Option, index: number) => (
               <Answer
                 key={index}
                 index={index}

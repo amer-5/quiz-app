@@ -30,3 +30,5 @@ jspm_packages/
 
 # Miscellaneous
 .DS_Store
+
+dist
