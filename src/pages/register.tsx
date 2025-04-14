@@ -32,7 +32,6 @@ const Register = () => {
         password,
         username
       );
-
       if (success) {
         navigate("/");
         openPopup();
@@ -40,8 +39,7 @@ const Register = () => {
         setError(message || "Došlo je do greške prilikom registracije.");
       }
     } catch (error) {
-      console.error(error);
-      setError("Došlo je do greške prilikom prijave. Pokušajte ponovo.");
+      setError("Došlo je do greške prilikom registracije. Pokušajte ponovo.");
     } finally {
       setLoading(false);
     }
@@ -52,7 +50,7 @@ const Register = () => {
       <div className="sm:block hidden">
         <Auth />
       </div>
-      <div className="sm:w-4/7 w-screen sm:px-[3.75rem] px-8 py-24 sm:overflow-hidden overflow-auto">
+      <div className="sm:w-2/6 w-screen sm:px-[3.75rem] px-8 py-24 sm:overflow-hidden overflow-auto">
         <img src={Logo} alt="logo" className="w-24 sm:mb-6 mb-8" />
         <h2 className="sm:text-[2rem] text-2xl font-bold">
           Registrujte se na Quiz BiH
@@ -76,7 +74,7 @@ const Register = () => {
           />
           {error && (
             <p className="text-red-500 mb-4">
-              {error && "Došlo je do greške prilikom registracije"}
+              {error || "Došlo je do greške prilikom registracije"}
             </p>
           )}
           <Button

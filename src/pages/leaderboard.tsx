@@ -21,13 +21,12 @@ const Leaderboard: React.FC = () => {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       const users = await fetchData({
-        url: "http://localhost:3000/leaderboard",
+        url: "https://quiz-be-zeta.vercel.app/leaderboard",
       });
       setLeaderboard(users.splice(0, 5));
       const user = await fetchData({
-        url: "http://localhost:3000/auth/profile",
+        url: "https://quiz-be-zeta.vercel.app/auth/profile",
       });
-      console.log(user);
       setUser(user);
     };
 

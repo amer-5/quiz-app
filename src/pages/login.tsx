@@ -41,7 +41,6 @@ const Login = () => {
         }
       }
     } catch (error) {
-      console.error(error);
       setError("Došlo je do greške prilikom prijave. Pokušajte ponovo.");
     } finally {
       setLoading(false);
@@ -53,7 +52,7 @@ const Login = () => {
       <div className="sm:block hidden">
         <Auth />
       </div>
-      <div className="xl:w-3/7 w-screen sm:px-[3.75rem] px-8 py-24 sm:overflow-hidden overflow-auto">
+      <div className="sm:w-2/6 w-screen sm:px-[3.75rem] px-8 py-24 sm:overflow-hidden overflow-auto">
         <img src={Logo} alt="logo" className="w-24 sm:mb-6 mb-8" />
         <h2 className="sm:text-[2rem] text-2xl font-bold">
           Prijavite se na vaš račun
@@ -79,7 +78,7 @@ const Login = () => {
           </div>
           {error && (
             <p className="text-red-500 mb-4">
-              {error && "Došlo je do greške prilikom prijave"}
+              {error || "Došlo je do greške prilikom prijave"}
             </p>
           )}
           <Button

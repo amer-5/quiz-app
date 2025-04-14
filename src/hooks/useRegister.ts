@@ -8,7 +8,7 @@ interface UserData {
 
 interface RegisterResponse {
   success: boolean;
-  message?: string;
+  message: string;
   token?: string;
   statusCode?: number;
 }
@@ -18,17 +18,20 @@ const registerUser = async (
   password: string,
   username: string
 ): Promise<RegisterResponse> => {
-  const userData: UserData = {
-    email,
-    password,
-    username,
-  };
+  const userData: UserData = { email, password, username };
 
   try {
     const data = await fetchData({
-      url: "http://localhost:3000/auth/register",
+      url: "https://quiz-be-zeta.vercel.app/auth/register",
       object: { method: "POST", body: JSON.stringify(userData) },
     });
+
+    if (data?.message) {
+      return {
+        success: false,
+        message: data.message,
+      };
+    }
 
     if (data?.token) {
       localStorage.setItem("token", data.token);
@@ -38,30 +41,20 @@ const registerUser = async (
         token: data.token,
       };
     } else {
-      throw new Error("Token nije pronađen u odgovoru.");
+      return {
+        success: false,
+        message: "Token nije pronađen u odgovoru.",
+      };
     }
   } catch (error) {
-    if (error instanceof Error && "statusCode" in error) {
-      const statusCode = error.statusCode;
-
-      if (statusCode === 404) {
-        return {
-          success: false,
-          message: "Korisnik sa ovom e-mail adresom nije pronađen.",
-          statusCode,
-        };
-      } else if (statusCode === 401) {
-        return {
-          success: false,
-          message: "Netačna lozinka. Pokušajte ponovo.",
-          statusCode,
-        };
-      }
-    }
+    const message =
+      typeof error === "string"
+        ? error
+        : "Došlo je do greške prilikom registracije.";
 
     return {
       success: false,
-      message: error instanceof Error ? error.message : "Došlo je do greške.",
+      message,
     };
   }
 };

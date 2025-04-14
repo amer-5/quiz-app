@@ -7,7 +7,7 @@ interface UserData {
 
 interface LoginResponse {
   success: boolean;
-  message?: string;
+  message: string;
   token?: string;
   statusCode?: number;
 }
@@ -20,9 +20,16 @@ const loginUser = async (
 
   try {
     const data = await fetchData({
-      url: "http://localhost:3000/auth/login",
+      url: "https://quiz-be-zeta.vercel.app/auth/login",
       object: { method: "POST", body: JSON.stringify(userData) },
     });
+
+    if (data?.message) {
+      return {
+        success: false,
+        message: data.message,
+      };
+    }
 
     if (data?.token) {
       localStorage.setItem("token", data.token);
@@ -31,31 +38,21 @@ const loginUser = async (
         message: "Uspešno ste se prijavili!",
         token: data.token,
       };
-    } else {
-      throw new Error("Token nije pronađen u odgovoru.");
-    }
-  } catch (error) {
-    if (error instanceof Error && "statusCode" in error) {
-      const statusCode = error.statusCode;
-
-      if (statusCode === 404) {
-        return {
-          success: false,
-          message: "Korisnik sa ovom e-mail adresom nije pronađen.",
-          statusCode,
-        };
-      } else if (statusCode === 401) {
-        return {
-          success: false,
-          message: "Netačna lozinka. Pokušajte ponovo.",
-          statusCode,
-        };
-      }
     }
 
     return {
       success: false,
-      message: error instanceof Error ? error.message : "Došlo je do greške.",
+      message: "Token nije pronađen u odgovoru.",
+    };
+  } catch (error) {
+    const message =
+      typeof error === "string" || typeof (error as any)?.message === "string"
+        ? (error as any).message
+        : "Došlo je do greške prilikom prijave.";
+
+    return {
+      success: false,
+      message,
     };
   }
 };
