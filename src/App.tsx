@@ -24,8 +24,8 @@ const AppContent = () => {
     <div className="z-10">
       {isLoginOrRegister || <Navigation />}
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="*" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/guides" element={<Guides />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/quiz" element={<Quiz />} />
