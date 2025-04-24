@@ -13,6 +13,7 @@ import CreateQuestion from "./pages/createQuestion.tsx";
 import Quiz from "./pages/quiz.tsx";
 import Login from "./pages/login.tsx";
 import Register from "./pages/register.tsx";
+import Answer from "./components/answer.tsx";
 
 const AppContent = () => {
   const location = useLocation();
@@ -32,6 +33,7 @@ const AppContent = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/create-question" element={<CreateQuestion />} />
+        <Route path="/123" element={<Answer.Correct index={1} onClick={() => console.log(123)}>123</Answer.Correct>} />
       </Routes>
     </div>
   );

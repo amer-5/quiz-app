@@ -1,4 +1,5 @@
 import { useState } from "react";
+import fetchData from "../hooks/fetchData";
 
 const CreateQuestion = () => {
   const [title, setTitle] = useState("");
@@ -10,6 +11,8 @@ const CreateQuestion = () => {
     { text: "", isCorrect: false },
     { text: "", isCorrect: false },
   ]);
+
+  if (!localStorage?.getItem("token")) return;
 
   const handleOptionChange = (index: number, text: string) => {
     const updated = [...options];
@@ -29,21 +32,25 @@ const CreateQuestion = () => {
     const token = localStorage.getItem("token");
     if (!token) return alert("Nisi prijavljen.");
 
-    const res = await fetch("https://quiz-be-zeta.vercel.app/questions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        title,
-        category,
-        timeLimit,
-        options,
-      }),
-    });
+    try {
+      const data = await fetchData({
+        url: "https://quiz-be-zeta.vercel.app/questions",
+        object: {
+          method: "POST",
+          body: JSON.stringify({
+            title,
+            category,
+            timeLimit,
+            options,
+          }),
+        },
+      });
 
-    if (res.ok) {
+      if (!data || data.error || data.message === "Unauthorized") {
+        alert(data?.message || "Greška");
+        return;
+      }
+
       alert("Pitanje dodano!");
       setTitle("");
       setCategory("");
@@ -54,9 +61,8 @@ const CreateQuestion = () => {
         { text: "", isCorrect: false },
         { text: "", isCorrect: false },
       ]);
-    } else {
-      const data = await res.json();
-      alert(data.message || "Greška");
+    } catch (error) {
+      console.error(error);
     }
   };
 

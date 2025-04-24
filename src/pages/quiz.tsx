@@ -25,8 +25,11 @@ const Quiz: React.FC = () => {
   const [question, setQuestion] = useState<Question | null>(null);
   const [gameId, setGameId] = useState<unknown>(null);
   const [timeLeft, setTimeLeft] = useState(30);
-  const isMobile = window.innerWidth < 768;
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [correctAnswer, setCorrectAnswer] = useState<number | null>(null);
+  const [isAnswering, setIsAnswering] = useState(false);
 
+  const isMobile = window.innerWidth < 768;
   const { openPopup } = usePopup();
 
   useEffect(() => {
@@ -70,7 +73,11 @@ const Quiz: React.FC = () => {
   }, [timeLeft, openPopup]);
 
   const handleAnswer = async (index: number) => {
-    if (!gameId || !question) return;
+    if (!gameId || !question || selectedAnswer !== null || isAnswering) return;
+
+    setIsAnswering(true);
+    const selectedOptionText = question?.options[index]?.text;
+    setSelectedAnswer(index);
 
     try {
       const response = await fetchData({
@@ -80,20 +87,28 @@ const Quiz: React.FC = () => {
           body: JSON.stringify({
             gameId,
             questionId: question._id,
-            answer: index,
+            answer: selectedOptionText,
           }),
         },
       });
 
-      if (response.gameOver) {
-        openPopup();
-      } else {
-        setScore(response.score);
-        setQuestion(response.nextQuestion);
-        setTimeLeft(30);
-      }
+      setCorrectAnswer(response.correctAnswer);
+
+      setTimeout(() => {
+        if (response.gameOver) {
+          openPopup();
+        } else {
+          setScore(response.score);
+          setQuestion(response.nextQuestion);
+          setTimeLeft(30);
+          setSelectedAnswer(null);
+          setCorrectAnswer(null);
+        }
+        setIsAnswering(false);
+      }, 3000);
     } catch (error) {
       console.error("Greška prilikom slanja odgovora", error);
+      setIsAnswering(false);
     }
   };
 
@@ -106,7 +121,7 @@ const Quiz: React.FC = () => {
       <QuizDonePopup score={score} />
       <img src={Logo} className="md:h-11 h-6" alt="Logo" />
       <div className="w-[calc(60vw+8rem)] flex flex-col items-center justify-center p-4">
-        <div className="w-full flex md:gap-8 gap-5 justify-between items-center md:mt-8 mt-[-1rem]  p-8 px-2">
+        <div className="w-full flex md:gap-8 gap-5 justify-between items-center md:mt-8 mt-[-1rem] p-8 px-2">
           <QuizButton
             type="score"
             name={!isMobile ? "Bodovi" : ""}
@@ -137,15 +152,59 @@ const Quiz: React.FC = () => {
             <CountdownBar time={30} />
           </div>
           <div className="flex flex-col gap-6 p-6 md:p-15">
-            {question?.options?.map((option: Option, index: number) => (
-              <Answer
-                key={index}
-                index={index}
-                onClick={() => handleAnswer(index)}
-              >
-                {option?.text}
-              </Answer>
-            ))}
+            {question?.options?.map((option, index) => {
+              if (selectedAnswer !== null) {
+                if (index === selectedAnswer && index === correctAnswer) {
+                  return (
+                    <Answer.Correct
+                      key={index}
+                      index={index}
+                      onClick={() => {}}
+                    >
+                      {option.text}
+                    </Answer.Correct>
+                  );
+                }
+                if (index === selectedAnswer && index !== correctAnswer) {
+                  return (
+                    <Answer.Wrong key={index} index={index} onClick={() => {}}>
+                      {option.text}
+                    </Answer.Wrong>
+                  );
+                }
+                if (index === correctAnswer) {
+                  return (
+                    <Answer.Correct
+                      key={index}
+                      index={index}
+                      onClick={() => {}}
+                    >
+                      {option.text}
+                    </Answer.Correct>
+                  );
+                }
+                return (
+                  <Answer
+                    key={index}
+                    index={index}
+                    onClick={() => {}}
+                    disableHover
+                  >
+                    {option.text}
+                  </Answer>
+                );
+              }
+
+              return (
+                <Answer
+                  key={index}
+                  index={index}
+                  onClick={() => handleAnswer(index)}
+                >
+                  {option.text}
+                </Answer>
+              );
+            })}
           </div>
         </div>
       </div>

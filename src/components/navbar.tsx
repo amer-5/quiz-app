@@ -83,13 +83,13 @@ const Navigation: React.FC = () => {
         }`}
       >
         <Link to="/" onClick={closeMenu}>
-          <p>Početna</p>
+          Početna
         </Link>
         <Link to="/guides" onClick={closeMenu}>
-          <p>Uputstva</p>
+          Uputstva
         </Link>
         <Link to="/leaderboard" onClick={closeMenu}>
-          <p>Ljestvica</p>
+          Ljestvica
         </Link>
         {Buttons(isLogged, closeMenu, true)}
       </div>

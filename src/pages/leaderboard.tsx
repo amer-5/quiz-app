@@ -3,6 +3,7 @@ import Button from "../components/button";
 import backgroundImage from "../assets/blue-bg.png";
 import QuizPopup from "../components/quizStartPopup";
 import usePopup from "../hooks/togglePopup";
+import Loader from "react-js-loader";
 
 import { useState, useEffect } from "react";
 import fetchData from "../hooks/fetchData";
@@ -17,9 +18,11 @@ const Leaderboard: React.FC = () => {
   const { openPopup } = usePopup();
   const [leaderboard, setLeaderboard] = useState<UserDisplayProps[]>([]);
   const [user, setUser] = useState<UserDisplayProps | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
+      setLoading(true);
       const users = await fetchData({
         url: "https://quiz-be-zeta.vercel.app/leaderboard",
       });
@@ -28,6 +31,7 @@ const Leaderboard: React.FC = () => {
         url: "https://quiz-be-zeta.vercel.app/auth/profile",
       });
       setUser(user);
+      setLoading(false);
     };
 
     fetchLeaderboard();
@@ -56,24 +60,34 @@ const Leaderboard: React.FC = () => {
         >
           Započni kviz
         </Button>
-        <div className="flex flex-col items-center justify-center gap-3 mt-14">
-          {leaderboard.map((user, index) => (
-            <ScoreCard
-              key={user._id}
-              placement={index + 1}
-              name={user.username}
-              points={user.bestScore}
-            />
-          ))}
-          {user && (
-            <ScoreCard
-              placement={0}
-              name={user.username}
-              points={user.bestScore}
-              className="my-10 shadow-white"
-            />
-          )}
-        </div>
+        {loading ? (
+          <Loader
+            type="spinner-default"
+            bgColor="#fff"
+            color="#fff"
+            title="Učitavanje podataka"
+            size={70}
+          />
+        ) : (
+          <div className="flex flex-col items-center justify-center gap-3 mt-14">
+            {leaderboard.map((user, index) => (
+              <ScoreCard
+                key={user._id}
+                placement={index + 1}
+                name={user.username}
+                points={user.bestScore}
+              />
+            ))}
+            {localStorage.getItem("token") && user && (
+              <ScoreCard
+                placement={0}
+                name={user.username}
+                points={user.bestScore}
+                className="my-10 shadow-white"
+              />
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
