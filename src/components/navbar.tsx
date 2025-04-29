@@ -14,30 +14,30 @@ const Buttons = (
     <div className={`flex ${isMobile ? "flex-col gap-4" : "gap-7"}`}>
       {!isLogged ? (
         <>
-          <Link to="/login" onClick={closeMenu}>
-            <Button
-              className={`${buttonStyle} text-[#2559D2] border-[#2559D2] border-[1px]`}
-            >
-              Prijavi se
-            </Button>
-          </Link>
-          <Link to="/register" onClick={closeMenu}>
-            <Button
-              className={`${buttonStyle} bg-[#2559D2] text-white border-[#2559D2] border-[1px]`}
-            >
-              Registruj se
-            </Button>
-          </Link>
-        </>
-      ) : (
-        <Link to="/login" onClick={closeMenu}>
           <Button
-            onClick={() => localStorage.removeItem("token")}
             className={`${buttonStyle} text-[#2559D2] border-[#2559D2] border-[1px]`}
           >
-            Odjavi se
+            <Link to="/login" onClick={closeMenu}>
+              Prijavi se
+            </Link>
           </Button>
-        </Link>
+          <Button
+            className={`${buttonStyle} bg-[#2559D2] text-white border-[#2559D2] border-[1px]`}
+          >
+            <Link to="/register" onClick={closeMenu}>
+              Registruj se
+            </Link>
+          </Button>
+        </>
+      ) : (
+        <Button
+          onClick={() => localStorage.removeItem("token")}
+          className={`${buttonStyle} text-[#2559D2] border-[#2559D2] border-[1px]`}
+        >
+          <Link to="/login" onClick={closeMenu}>
+            Odjavi se
+          </Link>
+        </Button>
       )}
     </div>
   );
@@ -64,15 +64,15 @@ const Navigation: React.FC = () => {
         </div>
       </div>
 
-      <div className="hidden md:flex gap-5">
-        <Link to="/">
-          <p>Početna</p>
+      <div className="hidden md:flex">
+        <Link to="/" className="p-5 z-99">
+          Početna
         </Link>
-        <Link to="/guides">
-          <p>Uputstva</p>
+        <Link to="/guides" className="p-5 z-99">
+          Uputstva
         </Link>
-        <Link to="/leaderboard">
-          <p>Ljestvica</p>
+        <Link to="/leaderboard" className="p-5 z-99">
+          Ljestvica
         </Link>
       </div>
       <div className="hidden md:flex gap-7">{Buttons(isLogged, closeMenu)}</div>

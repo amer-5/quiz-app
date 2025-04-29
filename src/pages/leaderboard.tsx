@@ -12,6 +12,7 @@ interface UserDisplayProps {
   _id: string;
   username: string;
   bestScore: number;
+  placement: number;
 }
 
 const Leaderboard: React.FC = () => {
@@ -26,11 +27,13 @@ const Leaderboard: React.FC = () => {
       const users = await fetchData({
         url: "https://quiz-be-zeta.vercel.app/leaderboard",
       });
-      setLeaderboard(users.splice(0, 5));
+
       const user = await fetchData({
         url: "https://quiz-be-zeta.vercel.app/auth/profile",
       });
+
       setUser(user);
+      setLeaderboard(users.slice(0, 5));
       setLoading(false);
     };
 
@@ -61,13 +64,15 @@ const Leaderboard: React.FC = () => {
           Započni kviz
         </Button>
         {loading ? (
-          <Loader
-            type="spinner-default"
-            bgColor="#fff"
-            color="#fff"
-            title="Učitavanje podataka"
-            size={70}
-          />
+          <div className="overflow-hidden mt-24">
+            <Loader
+              type="spinner-default"
+              bgColor="#fff"
+              color="#fff"
+              title="Učitavanje podataka"
+              size={70}
+            />
+          </div>
         ) : (
           <div className="flex flex-col items-center justify-center gap-3 mt-14">
             {leaderboard.map((user, index) => (

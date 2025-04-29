@@ -1,56 +1,49 @@
 import { useNavigate } from "react-router-dom";
-import bg from "../assets/blue-bg2.png";
-import emoji from "../assets/icons/popup1.png";
 import Button from "./button";
 import usePopup from "../hooks/togglePopup";
+
+import Logo from "../assets/logo.svg";
+import Trophy from "../assets/icons/trophy.svg";
+import Clock from "../assets/icons/clock.svg";
+import Medal from "../assets/icons/medal.svg";
 
 const QuizPopup: React.FC = () => {
   const { closePopup } = usePopup();
   const navigate = useNavigate();
-  const isLogged = Boolean(localStorage.getItem("token")?.length);
+  const isLoggedIn = Boolean(localStorage.getItem("token")?.length);
 
   const handleButtonClick = () => {
-    if (!isLogged) navigate("/login");
+    if (!isLoggedIn) navigate("/login");
     else navigate("/quiz");
   };
 
   return (
     <div
-      className="hidden fixed inset-0 bg-opacity-50 backdrop-blur-xs z-40 transition-3"
+      className=" fixed inset-0 bg-opacity-50 backdrop-blur-xs z-100 transition-3 flex items-center justify-center"
       id="popup"
-      onClick={closePopup}
     >
-      <div
-        style={{
-          backgroundImage: `url(${bg})`,
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-        }}
-        className="w-screen h-screen md:h-auto rounded-0 md:w-[80vw] fixed left-[50%] translate-[-50%] top-[50%] z-50 flex flex-col justify-center md:justify-around items-center md:py-32 md:rounded-[16px]"
-      >
-        <h2 className="text-white font-bold text-2xl md:text-[2.5rem] text-center">
-          Spremite se za Quiz BiH
-        </h2>
-        <p className="text-[0.75rem] md:text-[1rem] text-white text-center opacity-60 w-[90vw] my-3 md:my-0 md:w-2/3">
-          Svaki tačan odgovor donosi vam bodove, ali budite brzi - imate samo 10
-          sekundi po pitanju! Pažljivo birajte odgovore i pokušajte osvojiti što
-          više bodova prije nego istekne vrijeme. Jeste li spremni pokazati
-          svoje znanje? Sretno! 🎉
-        </p>
-        <img
-          src={emoji}
-          alt="/"
-          className="md:my-4 md:mt-6 scale-90 md:scale-125"
-        />
-        <Button
-          className={`bg-white text-[#2559D2] font-bold rounded-[10px] w-[70vw] md:w-auto text-[1.25rem] py-3 md:py-4 md:px-30 cursor-pointer ${
-            !isLogged ? "bg-red-400 opacity-50 cursor-not-allowed" : ""
-          }`}
-          onClick={handleButtonClick}
-        >
-          {isLogged ? "Započni kviz" : "Prijavite se"}
-        </Button>
+      <div className="sm:aspect-[4/5] sm:h-[70vh] mx-6 px-11 py-12 flex flex-col gap-4 rounded-2xl bg-red-50">
+        <div className="flex items-center">
+          <img src={Logo} className="h-6" />
+        </div>
+        <div className="gap-3 flex flex-col">
+          <h2 className="font-medium text-2xl">Spremite se za kviz!</h2>
+          <p className="text-[14px] opacity-60">
+            Pažljivo birajte odgovore i pokušajte osvojiti što više bodova prije
+            nego istekne
+          </p>
+        </div>
+        <div>
+          <div>
+            <img src={Trophy} />
+          </div>
+          <div>
+            <img src={Clock} />
+          </div>
+          <div>
+            <img src={Medal} />
+          </div>
+        </div>
       </div>
     </div>
   );

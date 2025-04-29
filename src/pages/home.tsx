@@ -27,7 +27,7 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div className="overflow-x-hidden w-screen flex flex-col md:flex-row items-start">
+    <div className="md:m-12 m-0 overflow-x-hidden w-screen flex flex-col md:flex-row items-start">
       <div className="md:ml-24 md:block flex flex-col w-screen items-center md:w-auto z-12">
         <h1 className="text-black md:text-[4rem] text-[28px] text-center md:text-start font-bold sm:w-[calc(75vw-7.5rem)] xl:w-[calc(40vw-7.5rem)] w-[calc(100vw-2.5rem)]">
           Pokažite svoje znanje o{" "}

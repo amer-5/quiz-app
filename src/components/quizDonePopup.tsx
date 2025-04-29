@@ -1,7 +1,5 @@
 
 import { useNavigate } from "react-router-dom";
-import bg from "../assets/blue-bg2.png";
-import emoji from "../assets/icons/popup2.png";
 import Button from "./button";
 import usePopup from "../hooks/togglePopup";
 
@@ -22,7 +20,6 @@ const QuizDonePopup = ({ score }: { score: number }) => {
     >
       <div
         style={{
-          backgroundImage: `url(${bg})`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
@@ -37,7 +34,6 @@ const QuizDonePopup = ({ score }: { score: number }) => {
         </p>
         <Button className="text-[#2559D2] font-bold text-xl bg-white rounded-[10px] py-3 md:py-4 w-[75vw] md:w-auto px-0 md:px-25 shadow-[0px_0px_10px_1px_#ffffff]">{`${score} bodova`}</Button>
         <img
-          src={emoji}
           alt="/"
           className="md:my-4 md:mt-6 scale-90 my-3 mt-4 md:scale-125"
         />

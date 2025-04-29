@@ -3,13 +3,11 @@ import { useState } from "react";
 import loginUser from "../hooks/useLogin";
 import togglePopup from "../hooks/togglePopup";
 
-import Auth from "../components/auth";
-import AuthButton from "../components/authButton";
 import Button from "../components/button";
 import Input from "../components/input";
 
-import googleIco from "../assets/icons/google.png";
 import Logo from "../assets/logo.svg";
+import Video from "../assets/mostar.mp4";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -48,19 +46,24 @@ const Login = () => {
   };
 
   return (
-    <div className="w-screen h-screen flex overflow-hidden">
-      <div className="sm:block hidden">
-        <Auth />
-      </div>
-      <div className="sm:w-2/6 w-screen sm:px-[3.75rem] px-8 py-24 sm:overflow-hidden overflow-auto">
-        <img src={Logo} alt="logo" className="w-24 sm:mb-6 mb-8" />
+    <div className="w-screen h-screen flex items-center justify-center overflow-hidden">
+      <video
+        src={Video}
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      <div className="sm:aspect-[4/5] sm:h-[70vh] mx-6 px-11 py-12 flex flex-col gap-4 justify-center rounded-2xl sm:overflow-hidden overflow-auto bg-white z-99">
+        <div className="flex items-center justify-center">
+          <img src={Logo} alt="logo" className="h-6" />
+        </div>
         <h2 className="sm:text-[2rem] text-2xl font-bold">
           Prijavite se na vaš račun
         </h2>
-        <p className="opacity-60 mb-10">Unesite informacije za prijavu</p>
-        <AuthButton providerImg={googleIco} providerName="Google" />
-        <p className="opacity-40 text-center font-light my-6">ili</p>
-        <form onSubmit={handleLogin} className="space-y-8 my-6">
+        <p className="opacity-60 mb-8">Unesite informacije za prijavu</p>
+        <form onSubmit={handleLogin} className="space-y-8">
           <Input
             inputPlaceholder="E-mail adresa"
             onChange={(e) => setEmail(e.target.value)}
@@ -70,21 +73,21 @@ const Login = () => {
             type="password"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <div className="flex items-center justify-between mb-12">
+          <div className="flex items-center justify-between">
             <p className="opacity-60">Zaboravili ste lozinku?</p>
             <Link to="/reset-pw" className="text-[#2559D2]">
               Resetuj lozinku
             </Link>
           </div>
           {error && (
-            <p className="text-red-500 mb-4">
+            <p className="text-red-500">
               {error || "Došlo je do greške prilikom prijave"}
             </p>
           )}
           <Button
             loading={loading}
             onClick={handleLogin}
-            className="w-full bg-[#2559D2] text-white rounded-[10px] py-3.5 my-4 cursor-pointer"
+            className="w-full bg-[#2559D2] text-white rounded-[10px] py-3.5 cursor-pointer"
           >
             Prijavi se
           </Button>

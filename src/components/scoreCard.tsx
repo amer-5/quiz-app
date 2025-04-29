@@ -17,7 +17,7 @@ const ScoreCard: React.FC<scoreCardProps> = ({
     >
       <div className="flex items-center">
         <span className="text-black font-bold ml-2.5 box-border">
-          #{placement}
+          {placement === 0 ? "Ti" : `#${placement}`}
         </span>
         <p className="ml-4">{name}</p>
       </div>
