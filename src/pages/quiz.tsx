@@ -3,11 +3,11 @@ import usePopup from "../hooks/togglePopup";
 import fetchData from "../hooks/fetchData";
 
 import Logo from "../assets/logo.svg";
-import QuizButton from "../components/quizButton";
 import Button from "../components/button";
 import CountdownBar from "../components/countdown";
 import Answer from "../components/answer";
-import QuizDonePopup from "../components/quizDonePopup";
+import { QuizDonePopup } from "../components/popup";
+import QuizButton from "../components/quizButton";
 
 interface Option {
   text: string;
@@ -25,9 +25,12 @@ const Quiz: React.FC = () => {
   const [question, setQuestion] = useState<Question | null>(null);
   const [gameId, setGameId] = useState<unknown>(null);
   const [timeLeft, setTimeLeft] = useState(30);
-  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
-  const [correctAnswer, setCorrectAnswer] = useState<number | null>(null);
+  const [answeredIndex, setAnsweredIndex] = useState<number | null>(null);
+  const [correctAnswer, setCorrectAnswer] = useState<boolean | null>(null);
   const [isAnswering, setIsAnswering] = useState(false);
+  const [message, setMessage] = useState(
+    "Čestitke! Odgovorio si tačno na sva pitanja!"
+  );
 
   const isMobile = window.innerWidth < 768;
   const { openPopup } = usePopup();
@@ -73,11 +76,10 @@ const Quiz: React.FC = () => {
   }, [timeLeft, openPopup]);
 
   const handleAnswer = async (index: number) => {
-    if (!gameId || !question || selectedAnswer !== null || isAnswering) return;
+    if (!gameId || !question || answeredIndex !== null || isAnswering) return;
 
     setIsAnswering(true);
-    const selectedOptionText = question?.options[index]?.text;
-    setSelectedAnswer(index);
+    const selectedOptionText = question.options[index]?.text;
 
     try {
       const response = await fetchData({
@@ -92,7 +94,15 @@ const Quiz: React.FC = () => {
         },
       });
 
-      setCorrectAnswer(response.correctAnswer);
+      setCorrectAnswer(response.correct);
+      setAnsweredIndex(index);
+      setMessage(
+        response.reason === "wrong_answer"
+          ? "Netačan odgovor"
+          : timeLeft === 0
+          ? "Vrijeme je isteklo"
+          : "Čestitke! Odgovorio si tačno na sva pitanja!"
+      );
 
       setTimeout(() => {
         if (response.gameOver) {
@@ -101,10 +111,10 @@ const Quiz: React.FC = () => {
           setScore(response.score);
           setQuestion(response.nextQuestion);
           setTimeLeft(30);
-          setSelectedAnswer(null);
+          setAnsweredIndex(null);
           setCorrectAnswer(null);
+          setIsAnswering(false);
         }
-        setIsAnswering(false);
       }, 3000);
     } catch (error) {
       console.error("Greška prilikom slanja odgovora", error);
@@ -113,12 +123,13 @@ const Quiz: React.FC = () => {
   };
 
   const handleEndQuiz = () => {
+    setMessage("Zavšili ste kviz.");
     openPopup();
   };
 
   return (
     <div className="flex flex-col w-screen items-center md:mt-15 mt-12 z-1">
-      <QuizDonePopup score={score} />
+      <QuizDonePopup score={score} message={message} />
       <img src={Logo} className="md:h-11 h-6" alt="Logo" />
       <div className="w-[calc(60vw+8rem)] flex flex-col items-center justify-center p-4">
         <div className="w-full flex md:gap-8 gap-5 justify-between items-center md:mt-8 mt-[-1rem] p-8 px-2">
@@ -149,40 +160,30 @@ const Quiz: React.FC = () => {
             {question ? question.title : "Učitavanje pitanja..."}
           </p>
           <div className="w-[60%] relative left-[20%]">
-            <CountdownBar time={30} />
+            <CountdownBar time={timeLeft} />
           </div>
           <div className="flex flex-col gap-6 p-6 md:p-15">
             {question?.options?.map((option, index) => {
-              if (selectedAnswer !== null) {
-                if (index === selectedAnswer && index === correctAnswer) {
-                  return (
-                    <Answer.Correct
-                      key={index}
-                      index={index}
-                      onClick={() => {}}
-                    >
-                      {option.text}
-                    </Answer.Correct>
-                  );
-                }
-                if (index === selectedAnswer && index !== correctAnswer) {
+              if (answeredIndex !== null) {
+                if (index === answeredIndex) {
+                  if (correctAnswer) {
+                    return (
+                      <Answer.Correct
+                        key={index}
+                        index={index}
+                        onClick={() => {}}
+                      >
+                        {option.text}
+                      </Answer.Correct>
+                    );
+                  }
                   return (
                     <Answer.Wrong key={index} index={index} onClick={() => {}}>
                       {option.text}
                     </Answer.Wrong>
                   );
                 }
-                if (index === correctAnswer) {
-                  return (
-                    <Answer.Correct
-                      key={index}
-                      index={index}
-                      onClick={() => {}}
-                    >
-                      {option.text}
-                    </Answer.Correct>
-                  );
-                }
+
                 return (
                   <Answer
                     key={index}

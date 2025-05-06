@@ -1,6 +1,6 @@
 import Button from "../components/button";
 import bgImage from "../assets/home-bg.png";
-import QuizPopup from "../components/quizStartPopup";
+import { QuizPopup } from "../components/popup";
 import usePopup from "../hooks/togglePopup";
 
 import fetchData from "../hooks/fetchData";

@@ -1,7 +1,7 @@
 import ScoreCard from "../components/scoreCard";
 import Button from "../components/button";
 import backgroundImage from "../assets/blue-bg.png";
-import QuizPopup from "../components/quizStartPopup";
+import { QuizPopup } from "../components/popup";
 import usePopup from "../hooks/togglePopup";
 import Loader from "react-js-loader";
 

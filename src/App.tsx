@@ -13,11 +13,11 @@ import CreateQuestion from "./pages/createQuestion.tsx";
 import Quiz from "./pages/quiz.tsx";
 import Login from "./pages/login.tsx";
 import Register from "./pages/register.tsx";
-import QuizPopup from "./components/quizStartPopup.tsx";
+import { QuizDonePopup } from "./components/popup";
 
 const AppContent = () => {
   const location = useLocation();
-  const isLoginOrRegister = ["/login", "/register", "/quiz"].includes(
+  const isLoginOrRegister = ["/login", "/register", "/quiz", "/123"].includes(
     location.pathname
   );
 
@@ -33,7 +33,7 @@ const AppContent = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/create-question" element={<CreateQuestion />} />
-        <Route path="/123" element={<QuizPopup />} />
+        <Route path="/123" element={<QuizDonePopup score={33} placement={2} />} />
       </Routes>
     </div>
   );
