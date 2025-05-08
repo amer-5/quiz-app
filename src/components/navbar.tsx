@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import fetchData from "../hooks/fetchData.ts";
+
 import Logo from "../assets/logo.svg";
 import Button from "../components/button.tsx";
 
@@ -8,6 +10,16 @@ const Buttons = (
   closeMenu: () => void,
   isMobile: boolean = false
 ) => {
+  const [name, setName] = useState<string | null>(null);
+
+  useEffect(async () => {
+    const data = await fetchData({
+      url: "https://quiz-be-zeta.vercel.app/auth/profile",
+    });
+
+    setName(data.username)
+  }, []);
+
   const buttonStyle =
     "text-center rounded-[5px] px-6 py-2 tracking-wider cursor-pointer";
   return (
@@ -34,9 +46,7 @@ const Buttons = (
           onClick={() => localStorage.removeItem("token")}
           className={`${buttonStyle} text-[#2559D2] border-[#2559D2] border-[1px]`}
         >
-          <Link to="/login" onClick={closeMenu}>
-            Odjavi se
-          </Link>
+          <Link to="/login" onClick={closeMenu}></Link>
         </Button>
       )}
     </div>

@@ -14,7 +14,7 @@ const Home: React.FC = () => {
     const getData = async () => {
       try {
         const res = await fetchData({
-          url: "http://localhost:3000/game/length",
+          url: "https://quiz-be-zeta.vercel.app/game/length",
         });
         setGamesLen(res.gamesLength);
       } catch (err) {
