@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import usePopup from "../hooks/togglePopup";
 import fetchData from "../hooks/fetchData";
 
 import Logo from "../assets/logo.svg";
 import Button from "../components/button";
-import CountdownBar from "../components/countdown";
+// import CountdownBar from "../components/countdown";
 import Answer from "../components/answer";
 import { QuizDonePopup } from "../components/popup";
 import QuizButton from "../components/quizButton";
@@ -34,6 +34,7 @@ const Quiz: React.FC = () => {
 
   const isMobile = window.innerWidth < 768;
   const { openPopup } = usePopup();
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const startGame = async () => {
@@ -54,10 +55,10 @@ const Quiz: React.FC = () => {
 
   useEffect(() => {
     if (question) {
-      const timer = setInterval(() => {
+      timerRef.current = setInterval(() => {
         setTimeLeft((prev) => {
           if (prev <= 1) {
-            clearInterval(timer);
+            clearInterval(timerRef.current!);
             handleAnswer(-1);
             return 0;
           }
@@ -65,7 +66,7 @@ const Quiz: React.FC = () => {
         });
       }, 1000);
 
-      return () => clearInterval(timer);
+      return () => clearInterval(timerRef.current!);
     }
   }, [question]);
 
@@ -79,6 +80,8 @@ const Quiz: React.FC = () => {
     if (!gameId || !question || answeredIndex !== null || isAnswering) return;
 
     setIsAnswering(true);
+    clearInterval(timerRef.current!);
+
     const selectedOptionText = question.options[index]?.text;
 
     try {
@@ -96,13 +99,11 @@ const Quiz: React.FC = () => {
 
       setCorrectAnswer(response.correct);
       setAnsweredIndex(index);
-      setMessage(
-        response.reason === "wrong_answer"
-          ? "Netačan odgovor"
-          : timeLeft === 0
-          ? "Vrijeme je isteklo"
-          : "Čestitke! Odgovorio si tačno na sva pitanja!"
-      );
+
+      if (index === -1) setMessage("Vrijeme je isteklo");
+      else if (response.reason === "wrong_answer")
+        setMessage("Netačan odgovor");
+      else setMessage("Tačan odgovor!");
 
       setTimeout(() => {
         if (response.gameOver) {
@@ -159,9 +160,7 @@ const Quiz: React.FC = () => {
           <p className="text-center m-7 md:m-10 text-[14px] md:text-[20px]">
             {question ? question.title : "Učitavanje pitanja..."}
           </p>
-          <div className="w-[60%] relative left-[20%]">
-            <CountdownBar time={timeLeft} />
-          </div>
+          <div className="w-[60%] relative left-[20%]"></div>
           <div className="flex flex-col gap-6 p-6 md:p-15">
             {question?.options?.map((option, index) => {
               if (answeredIndex !== null) {

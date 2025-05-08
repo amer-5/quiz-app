@@ -35,7 +35,7 @@ export const QuizDonePopup = ({
       className="hidden fixed inset-0 bg-opacity-50 backdrop-blur-xs z-100 transition-3 flex items-center justify-center"
       id="popup"
     >
-      <div className="sm:aspect-[4/5] sm:h-[60vh] mx-6 px-11 py-12 flex flex-col justify-between gap-4 rounded-2xl bg-white">
+      <div className="sm:aspect-[4/5] sm:h-[60vh] mx-6 px-11 py-12 flex flex-col justify-between gap-4 rounded-2xl bg-white shadow-[0px_0px_12px_3px_#00000024]">
         <div className="flex items-center">
           <img src={Logo} className="h-6" />
         </div>
@@ -47,17 +47,17 @@ export const QuizDonePopup = ({
             U prilogu pogledajte svoju statistiku:
           </p>
         </div>
-        <div className="flex gap-2">
-          <img src={Trophy} />
-          <p>
-            Osvojili ste: <span>{brojBodova}</span>
-          </p>
-        </div>
-        <div className="flex gap-2">
-          <img src={Message} />
-          <p>
-            {message}
-          </p>
+        <div className="flex flex-col gap-4">
+          <div className="flex gap-2">
+            <img src={Trophy} />
+            <p>
+              Osvojili ste: <span>{brojBodova}</span>
+            </p>
+          </div>
+          <div className="flex gap-2">
+            <img src={Message} />
+            <p>{message}</p>
+          </div>
         </div>
         <div className="flex items-center justify-center gap-3 w-100%">
           <Button
@@ -93,7 +93,7 @@ export const QuizPopup: React.FC = () => {
       className="hidden fixed inset-0 bg-opacity-50 backdrop-blur-xs z-100 transition-3 flex items-center justify-center"
       id="popup"
     >
-      <div className="sm:aspect-[4/5] sm:h-[60vh] mx-6 px-11 py-12 flex flex-col justify-between gap-4 rounded-2xl bg-white">
+      <div className="sm:aspect-[4/5] sm:h-[60vh] mx-6 px-11 py-12 flex flex-col justify-between gap-4 rounded-2xl bg-white shadow-[0px_0px_12px_3px_#00000024]">
         <div className="flex items-center">
           <img src={Logo} className="h-6" />
         </div>
