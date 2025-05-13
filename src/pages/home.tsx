@@ -3,28 +3,8 @@ import bgImage from "../assets/home-bg.png";
 import { QuizPopup } from "../components/popup";
 import usePopup from "../hooks/togglePopup";
 
-import fetchData from "../hooks/fetchData";
-import { useState, useEffect } from "react";
-
 const Home: React.FC = () => {
-  const [gamesLen, setGamesLen] = useState(0);
   const { openPopup } = usePopup();
-
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const res = await fetchData({
-          url: "https://quiz-be-zeta.vercel.app/game/length",
-        });
-        setGamesLen(res.gamesLength);
-      } catch (err) {
-        console.error("Greška prilikom dohvaćanja broja kvizova:", err);
-        setGamesLen(0);
-      }
-    };
-
-    getData();
-  }, []);
 
   return (
     <div className="md:m-12 m-0 overflow-x-hidden w-screen flex flex-col md:flex-row items-start">
@@ -43,10 +23,6 @@ const Home: React.FC = () => {
         >
           Započni kviz
         </Button>
-
-        <p className="opacity-60 mt-4 md:ml-27 text-center md:text-start">
-          {gamesLen} odigranih kvizova
-        </p>
       </div>
 
       <img
