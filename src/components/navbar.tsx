@@ -12,12 +12,14 @@ const Buttons = (
 ) => {
   const [name, setName] = useState<string | null>(null);
 
-  useEffect(async () => {
-    const data = await fetchData({
-      url: "https://quiz-be-zeta.vercel.app/auth/profile",
-    });
+  useEffect(() => {
+    const getName = async () => {
+      const data = await fetchData({
+        url: "https://quiz-be-zeta.vercel.app/auth/profile",
+      });
 
-    setName(data.username)
+      setName(data.username);
+    };
   }, []);
 
   const buttonStyle =
