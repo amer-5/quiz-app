@@ -16,14 +16,6 @@ export const QuizDonePopup = ({
   score: number;
   message: string;
 }) => {
-  const { closePopup } = usePopup();
-  const navigate = useNavigate();
-
-  const handleClose = () => {
-    closePopup();
-    navigate("/");
-  };
-
   let brojBodova;
 
   if (score % 10 === 1) brojBodova = score + " bod";
@@ -35,9 +27,9 @@ export const QuizDonePopup = ({
       className="hidden fixed inset-0 bg-opacity-50 backdrop-blur-xs z-100 transition-3 flex items-center justify-center"
       id="popup"
     >
-      <div className="sm:aspect-[4/5] sm:h-[60vh] mx-6 px-11 py-12 flex flex-col justify-between gap-4 rounded-2xl bg-white shadow-[0px_0px_12px_3px_#00000024]">
+      <div className="lg:w-[30vw] mx-6 px-11 py-12 flex flex-col justify-between gap-4 rounded-2xl bg-white shadow-[0px_0px_12px_3px_#00000024]">
         <div className="flex items-center">
-          <img src={Logo} className="h-6" />
+          <img src={Logo} className="h-6 mb-4" />
         </div>
         <div className="gap-3 flex flex-col">
           <h2 className="font-medium text-2xl">
@@ -47,7 +39,7 @@ export const QuizDonePopup = ({
             U prilogu pogledajte svoju statistiku:
           </p>
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 my-6">
           <div className="flex gap-2">
             <img src={Trophy} />
             <p>
@@ -59,19 +51,19 @@ export const QuizDonePopup = ({
             <p>{message}</p>
           </div>
         </div>
-        <div className="flex items-center justify-center gap-3 w-100%">
-          <Button
-            className="text-center rounded-[10px] py-3 tracking-wider cursor-pointer w-1/2 text-[#2559D2] border-[#2559D2] border-[1px]"
-            onClick={handleClose}
-          >
-            Zatvori
-          </Button>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-100%">
           <Link
+            className="text-center rounded-[10px] py-3 tracking-wider cursor-pointer sm:w-1/2 w-full text-[#2559D2] border-[#2559D2] border-[1px]"
             to="/leaderboard"
-            className="text-center rounded-[10px] py-3 tracking-wider cursor-pointer w-1/2 bg-[#2559D2] text-white border-[#2559D2] border-[1px]"
           >
             Ljestvica
           </Link>
+          <Button
+            className="text-center rounded-[10px] py-3 tracking-wider cursor-pointer sm:w-1/2 w-full bg-[#2559D2] text-white border-[#2559D2] border-[1px]"
+            onClick={() => window.location.reload()}
+          >
+            Pokušaj ponovo
+          </Button>
         </div>
       </div>
     </div>
@@ -93,9 +85,9 @@ export const QuizPopup: React.FC = () => {
       className="hidden fixed inset-0 bg-opacity-50 backdrop-blur-xs z-100 transition-3 flex items-center justify-center"
       id="popup"
     >
-      <div className="sm:aspect-[4/5] sm:h-[60vh] mx-6 px-11 py-12 flex flex-col justify-between gap-4 rounded-2xl bg-white shadow-[0px_0px_12px_3px_#00000024]">
+      <div className="lg:w-[30vw] mx-6 px-11 py-12 flex flex-col justify-between gap-4 rounded-2xl bg-white shadow-[0px_0px_12px_3px_#00000024]">
         <div className="flex items-center">
-          <img src={Logo} className="h-6" />
+          <img src={Logo} className="h-6 mb-4" />
         </div>
         <div className="gap-3 flex flex-col">
           <h2 className="font-medium text-2xl">Spremite se za kviz!</h2>
@@ -104,7 +96,7 @@ export const QuizPopup: React.FC = () => {
             nego istekne
           </p>
         </div>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 my-6">
           <div className="flex gap-3">
             <img src={Trophy} className="flex items-center justify-center" />
             <p className="opacity-60">Svaki tačan odgovor nosi po 1 bod</p>

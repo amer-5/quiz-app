@@ -163,6 +163,8 @@ const Quiz: React.FC = () => {
           <div className="w-[60%] relative left-[20%]"></div>
           <div className="flex flex-col gap-6 p-6 md:p-15">
             {question?.options?.map((option, index) => {
+              const isDisabled = isAnswering || answeredIndex !== null;
+
               if (answeredIndex !== null) {
                 if (index === answeredIndex) {
                   if (correctAnswer) {
@@ -189,6 +191,7 @@ const Quiz: React.FC = () => {
                     index={index}
                     onClick={() => {}}
                     disableHover
+                    disabled
                   >
                     {option.text}
                   </Answer>
@@ -200,6 +203,8 @@ const Quiz: React.FC = () => {
                   key={index}
                   index={index}
                   onClick={() => handleAnswer(index)}
+                  disableHover={isDisabled}
+                  disabled={isDisabled}
                 >
                   {option.text}
                 </Answer>

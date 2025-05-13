@@ -53,7 +53,7 @@ const Register = () => {
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
       />
-      <div className="sm:aspect-[4/5] sm:h-[70vh] mx-6 px-11 py-12 flex flex-col gap-4 justify-center rounded-2xl sm:overflow-hidden overflow-auto bg-white z-99">
+      <div className="mx-6 px-11 py-12 flex flex-col gap-4 justify-center rounded-2xl sm:overflow-hidden overflow-auto bg-white z-99">
         <div className="flex items-center justify-center">
           <img src={Logo} alt="logo" className="h-6" />
         </div>
