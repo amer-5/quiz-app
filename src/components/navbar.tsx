@@ -32,10 +32,15 @@ const Buttons = (
         </>
       ) : (
         <Button
-          onClick={() => localStorage.removeItem("token")}
+          onClick={() => {
+            localStorage.removeItem("token");
+            window.location.reload();
+          }}
           className={`${buttonStyle} text-[#2559D2] border-[#2559D2] border-[1px]`}
         >
-          <Link to="/login" onClick={closeMenu}>Odjavi se</Link>
+          <Link to="/login" onClick={closeMenu}>
+            Odjavi se
+          </Link>
         </Button>
       )}
     </div>
