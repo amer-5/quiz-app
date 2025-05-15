@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import usePopup from "../hooks/togglePopup";
 import fetchData from "../hooks/fetchData";
+import CountdownBar from "../components/countdown";
 
 import Logo from "../assets/logo.svg";
 import Button from "../components/button";
-// import CountdownBar from "../components/countdown";
 import Answer from "../components/answer";
 import { QuizDonePopup } from "../components/popup";
 import QuizButton from "../components/quizButton";
@@ -79,12 +79,12 @@ const Quiz: React.FC = () => {
   const handleAnswer = async (index: number) => {
     if (!gameId || !question || answeredIndex !== null || isAnswering) return;
 
-    setIsAnswering(true);
-    clearInterval(timerRef.current!);
-
-    const selectedOptionText = question.options[index]?.text;
-
     try {
+      setIsAnswering(true);
+      clearInterval(timerRef.current!);
+
+      const selectedOptionText = question.options[index]?.text;
+
       const response = await fetchData({
         url: "https://quiz-be-zeta.vercel.app/game/answer",
         object: {
@@ -105,6 +105,8 @@ const Quiz: React.FC = () => {
         setMessage("Netačan odgovor");
       else setMessage("Tačan odgovor!");
 
+      setIsAnswering(false);
+
       setTimeout(() => {
         if (response.gameOver) {
           openPopup();
@@ -114,7 +116,6 @@ const Quiz: React.FC = () => {
           setTimeLeft(30);
           setAnsweredIndex(null);
           setCorrectAnswer(null);
-          setIsAnswering(false);
         }
       }, 3000);
     } catch (error) {
@@ -152,7 +153,7 @@ const Quiz: React.FC = () => {
             </p>
             <Button
               onClick={handleEndQuiz}
-              className="py-1 md:py-3 px-2 md:px-5 bg-red-500 rounded-[2px] md:rounded-[10px] text-white text-[12px] md:text-[1rem] cursor-pointer"
+              className="bg-white hover:bg-gray-100 text-[#2559D2] font-medium py-2 md:py-2.5 px-4 md:px-6 rounded-lg transition-all duration-200 text-[12px] md:text-[14px] shadow-sm hover:shadow-md border border-transparent hover:border-gray-200 cursor-pointer"
             >
               Završi kviz
             </Button>
@@ -160,17 +161,19 @@ const Quiz: React.FC = () => {
           <p className="text-center m-7 md:m-10 text-[14px] md:text-[20px]">
             {question ? question.title : "Učitavanje pitanja..."}
           </p>
-          <div className="w-[60%] relative left-[20%]"></div>
+          <div className="w-[60%] relative left-[20%]">
+            {question && <CountdownBar time={timeLeft} maxTime={30} />}
+          </div>
           <div className="flex flex-col gap-6 p-6 md:p-15">
             {question?.options?.map((option, index) => {
-              const isDisabled = isAnswering || answeredIndex !== null;
+              const isDisabled = isAnswering;
 
               if (answeredIndex !== null) {
                 if (index === answeredIndex) {
                   if (correctAnswer) {
                     return (
                       <Answer.Correct
-                        key={index}
+                        key={`${question._id}-${index}`}
                         index={index}
                         onClick={() => {}}
                       >
@@ -179,7 +182,11 @@ const Quiz: React.FC = () => {
                     );
                   }
                   return (
-                    <Answer.Wrong key={index} index={index} onClick={() => {}}>
+                    <Answer.Wrong
+                      key={`${question._id}-${index}`}
+                      index={index}
+                      onClick={() => {}}
+                    >
                       {option.text}
                     </Answer.Wrong>
                   );
@@ -187,11 +194,11 @@ const Quiz: React.FC = () => {
 
                 return (
                   <Answer
-                    key={index}
+                    key={`${question._id}-${index}`}
                     index={index}
                     onClick={() => {}}
-                    disableHover
-                    disabled
+                    disableHover={true}
+                    disabled={true}
                   >
                     {option.text}
                   </Answer>
@@ -200,7 +207,7 @@ const Quiz: React.FC = () => {
 
               return (
                 <Answer
-                  key={index}
+                  key={`${question._id}-${index}`}
                   index={index}
                   onClick={() => handleAnswer(index)}
                   disableHover={isDisabled}

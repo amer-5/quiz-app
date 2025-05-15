@@ -114,15 +114,15 @@ export const QuizPopup: React.FC = () => {
             </p>
           </div>
         </div>
-        <div className="flex items-center justify-center gap-3 w-100%">
+        <div className="flex flex-col sm:flex-row  items-center justify-center gap-3 w-100% ">
           <Button
-            className="text-center rounded-[10px] py-3 tracking-wider cursor-pointer w-1/2 text-[#2559D2] border-[#2559D2] border-[1px]"
+            className="text-center rounded-[10px] py-3 tracking-wider cursor-pointer sm:w-1/2 w-full text-[#2559D2] border-[#2559D2] border-[1px]"
             onClick={closePopup}
           >
             Odustani
           </Button>
           <Button
-            className="text-center rounded-[10px] py-3 tracking-wider cursor-pointer w-1/2 bg-[#2559D2] text-white border-[#2559D2] border-[1px]"
+            className="text-center rounded-[10px] py-3 tracking-wider cursor-pointer sm:w-1/2 w-full  bg-[#2559D2] text-white border-[#2559D2] border-[1px]"
             onClick={handleButtonClick}
           >
             Pokreni kviz

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 import Logo from "../assets/logo.svg";
-import Button from "../components/button.tsx";
+import Button from "./button.tsx";
 
 const Buttons = (
   isLogged: boolean,
