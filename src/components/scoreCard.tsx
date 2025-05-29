@@ -11,6 +11,12 @@ const ScoreCard: React.FC<scoreCardProps> = ({
   points,
   className,
 }) => {
+  let brojBodova;
+
+  if (points % 10 === 1) brojBodova = points + " bod";
+  else if ([2, 3, 4].includes(points % 10)) brojBodova = points + " boda";
+  else brojBodova = points + " bodova";
+
   return (
     <div
       className={`${className} flex items-center justify-between p-3 rounded-lg shadow-[0px_0px_25px_5px_rgba(0,_0,_0,_0.1)] w-1/2 bg-white`}
@@ -21,7 +27,7 @@ const ScoreCard: React.FC<scoreCardProps> = ({
         </span>
         <p className="ml-4">{name}</p>
       </div>
-      <p className="text-right mr-2.5 tracking-wider">{points} Bodova</p>
+      <p className="text-right mr-2.5 tracking-wider">{points} ${brojBodova}</p>
     </div>
   );
 };

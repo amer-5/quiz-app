@@ -117,7 +117,7 @@ const Quiz: React.FC = () => {
           setAnsweredIndex(null);
           setCorrectAnswer(null);
         }
-      }, 3000);
+      }, 1500);
     } catch (error) {
       console.error("Greška prilikom slanja odgovora", error);
       setIsAnswering(false);
