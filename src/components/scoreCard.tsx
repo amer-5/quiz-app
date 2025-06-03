@@ -23,11 +23,11 @@ const ScoreCard: React.FC<scoreCardProps> = ({
     >
       <div className="flex items-center">
         <span className="text-black font-bold ml-2.5 box-border">
-          {placement === 0 ? "Ti" : `#${placement}`}
+          #{placement}
         </span>
         <p className="ml-4">{name}</p>
       </div>
-      <p className="text-right mr-2.5 tracking-wider">{points} ${brojBodova}</p>
+      <p className="text-right mr-2.5 tracking-wider">{brojBodova}</p>
     </div>
   );
 };

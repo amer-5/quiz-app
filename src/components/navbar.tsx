@@ -1,18 +1,40 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import fetchData from "../hooks/fetchData.ts";
 
 import Logo from "../assets/logo.svg";
 import Button from "./button.tsx";
+import QuizButton from "./quizButton.tsx";
+
+interface UserProps {
+  _id: string;
+  username: string;
+  bestScore: number;
+  rank: number;
+  coins: number;
+}
 
 const Buttons = (
   isLogged: boolean,
   closeMenu: () => void,
   isMobile: boolean = false
 ) => {
+  const [user, setUser] = useState<UserProps | null>(null);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const user = await fetchData({
+        url: "https://quiz-be-zeta.vercel.app/auth/profile",
+      });
+      setUser(user);
+    };
+    getUser();
+  });
+
   const buttonStyle =
     "text-center rounded-[5px] px-6 py-2 tracking-wider cursor-pointer";
   return (
-    <div className={`flex ${isMobile ? "flex-col gap-4" : "gap-7"}`}>
+    <div className={`flex ${isMobile ? "flex-col gap-4" : "gap-3"}`}>
       {!isLogged ? (
         <>
           <Button
@@ -31,17 +53,25 @@ const Buttons = (
           </Button>
         </>
       ) : (
-        <Button
-          onClick={() => {
-            localStorage.removeItem("token");
-            window.location.reload();
-          }}
-          className={`${buttonStyle} text-[#2559D2] border-[#2559D2] border-[1px]`}
-        >
-          <Link to="/login" onClick={closeMenu}>
-            Odjavi se
-          </Link>
-        </Button>
+        <>
+          <QuizButton
+            type="coin"
+            value={user?.coins || 0}
+            name={""}
+            className="!shadow-none border-[#FFBE00] border-[1px]"
+          />
+          <Button
+            onClick={() => {
+              localStorage.removeItem("token");
+              window.location.reload();
+            }}
+            className={`${buttonStyle} text-[#2559D2] border-[#2559D2] border-[1px]`}
+          >
+            <Link to="/login" onClick={closeMenu}>
+              Odjavi se
+            </Link>
+          </Button>
+        </>
       )}
     </div>
   );

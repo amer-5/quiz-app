@@ -12,7 +12,7 @@ interface UserDisplayProps {
   _id: string;
   username: string;
   bestScore: number;
-  placement: number;
+  rank: number;
 }
 
 const Leaderboard: React.FC = () => {
@@ -85,7 +85,7 @@ const Leaderboard: React.FC = () => {
             ))}
             {localStorage.getItem("token") && user && (
               <ScoreCard
-                placement={0}
+                placement={user.rank}
                 name={user.username}
                 points={user.bestScore}
                 className="my-10 shadow-white"

@@ -28,7 +28,7 @@ const Home: React.FC = () => {
       <img
         src={bgImage}
         alt="Background"
-        className="absolute bottom-0 z-11 sm:h-[calc(90vh-4.75rem)] md:h-[calc(100vh-4.75rem)] md:right-0 object-cover translate-y-[20vh]"
+        className="absolute bottom-0 z-11 sm:h-[calc(90vh-4.75rem)] md:h-[calc(100vh-4.75rem)] md:right-0 object-cover md:translate-y-[20vh]"
       />
 
       <QuizPopup />

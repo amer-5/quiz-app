@@ -12,9 +12,11 @@ import Message from "../assets/icons/message.svg";
 export const QuizDonePopup = ({
   score,
   message,
+  revive
 }: {
   score: number;
   message: string;
+  revive: () => void;
 }) => {
   let brojBodova;
 
@@ -60,9 +62,9 @@ export const QuizDonePopup = ({
           </Link>
           <Button
             className="text-center rounded-[10px] py-3 tracking-wider cursor-pointer sm:w-1/2 w-full bg-[#2559D2] text-white border-[#2559D2] border-[1px]"
-            onClick={() => window.location.reload()}
+            onClick={revive}
           >
-            Pokušaj ponovo
+            Nastavi
           </Button>
         </div>
       </div>

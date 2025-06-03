@@ -20,7 +20,16 @@ interface Question {
   options: Option[];
 }
 
+interface UserProps {
+  _id: string;
+  username: string;
+  bestScore: number;
+  rank: number;
+  coins: number;
+}
+
 const Quiz: React.FC = () => {
+  const [user, setUser] = useState<UserProps | null>(null);
   const [score, setScore] = useState(0);
   const [question, setQuestion] = useState<Question | null>(null);
   const [gameId, setGameId] = useState<unknown>(null);
@@ -31,9 +40,9 @@ const Quiz: React.FC = () => {
   const [message, setMessage] = useState(
     "Čestitke! Odgovorio si tačno na sva pitanja!"
   );
-
+  
   const isMobile = window.innerWidth < 768;
-  const { openPopup } = usePopup();
+  const { openPopup, closePopup } = usePopup();
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -50,7 +59,14 @@ const Quiz: React.FC = () => {
         console.error("Greška prilikom pokretanja igre", error);
       }
     };
+    const getUser = async () => {
+      const user = await fetchData({
+        url: "https://quiz-be-zeta.vercel.app/auth/profile",
+      });
+      setUser(user);
+    };
     startGame();
+    getUser();
   }, []);
 
   useEffect(() => {
@@ -97,6 +113,8 @@ const Quiz: React.FC = () => {
         },
       });
 
+      console.log(response);
+
       setCorrectAnswer(response.correct);
       setAnsweredIndex(index);
 
@@ -129,9 +147,27 @@ const Quiz: React.FC = () => {
     openPopup();
   };
 
+  const handleRevive = async () => {
+    try {
+      const response = await fetchData({
+        url: "https://quiz-be-zeta.vercel.app/game/revive",
+        object: { method: "POST" },
+      });
+      console.log(response);
+      setQuestion(response.nextQuestion);
+      setTimeLeft(30);
+      closePopup();
+      setAnsweredIndex(null);
+      setCorrectAnswer(null);
+      setIsAnswering(false)
+    } catch (error) {
+      console.error("Greška prilikom pokretanja igre", error);
+    }
+  };
+
   return (
     <div className="flex flex-col w-screen items-center md:mt-15 mt-12 z-1">
-      <QuizDonePopup score={score} message={message} />
+      <QuizDonePopup score={score} message={message} revive={handleRevive} />
       <img src={Logo} className="md:h-11 h-6" alt="Logo" />
       <div className="w-[calc(60vw+8rem)] flex flex-col items-center justify-center p-4">
         <div className="w-full flex md:gap-8 gap-5 justify-between items-center md:mt-8 mt-[-1rem] p-8 px-2">
@@ -139,6 +175,11 @@ const Quiz: React.FC = () => {
             type="score"
             name={!isMobile ? "Bodovi" : ""}
             value={score}
+          />
+          <QuizButton
+            type="coin"
+            name={!isMobile ? "Novičići" : ""}
+            value={user?.coins || 0}
           />
           <QuizButton
             type="time"
