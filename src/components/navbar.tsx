@@ -29,10 +29,11 @@ const Buttons = (
       setUser(user);
     };
     getUser();
-  });
+  }, []);
 
   const buttonStyle =
     "text-center rounded-[5px] px-6 py-2 tracking-wider cursor-pointer";
+
   return (
     <div className={`flex ${isMobile ? "flex-col gap-4" : "gap-3"}`}>
       {!isLogged ? (
@@ -90,11 +91,23 @@ const Navigation: React.FC = () => {
         <img src={Logo} alt="Logo" className="h-5 md:h-11" />
       </Link>
 
-      <div className="md:hidden cursor-pointer" onClick={toggleMenu}>
-        <div className="space-y-1">
-          <span className="block w-6 h-0.5 bg-[#2559D2]"></span>
-          <span className="block w-6 h-0.5 bg-[#2559D2]"></span>
-          <span className="block w-6 h-0.5 bg-[#2559D2]"></span>
+      <div className="md:hidden cursor-pointer z-[999]" onClick={toggleMenu}>
+        <div className="w-6 h-5 relative">
+          <span
+            className={`absolute left-0 h-0.5 w-full bg-[#2559D2] transition-transform duration-300 ${
+              isOpened ? "top-2.5 rotate-45" : "top-0"
+            }`}
+          />
+          <span
+            className={`absolute left-0 h-0.5 w-full bg-[#2559D2] transition-opacity duration-300 ${
+              isOpened ? "opacity-0" : "top-2"
+            }`}
+          />
+          <span
+            className={`absolute left-0 h-0.5 w-full bg-[#2559D2] transition-transform duration-300 ${
+              isOpened ? "top-2.5 -rotate-45" : "top-4"
+            }`}
+          />
         </div>
       </div>
 
